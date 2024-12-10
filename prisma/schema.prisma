@@ -15,7 +15,7 @@ model User {
   username       String   @unique
   email          String   @unique
   hashedPassword String
-  role           Role
+  role           Role     @default(PLAYER)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
