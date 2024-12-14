@@ -1,5 +1,5 @@
+import CategoryData from '@/components/CategoryData';
 import Loading from '@/components/Loading';
-import QuestionsData from '@/components/QuestionsData';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -10,21 +10,21 @@ import {
 } from '@/components/ui/card';
 import { PlusSquare } from 'lucide-react';
 import Link from 'next/link';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 
-export default function QuestionsRoute() {
+export default function CategoriesRoute() {
   return (
-    <Card className="h-full w-full">
+    <Card className="w-full h-full">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Questions</CardTitle>
-            <CardDescription>Manage all the questions</CardDescription>
+            <CardTitle>Categories</CardTitle>
+            <CardDescription>Manage all the categories</CardDescription>
           </div>
           <div>
             <Link
               className={buttonVariants()}
-              href="/dashboard/questions/create"
+              href="/dashboard/categories/create"
             >
               New <PlusSquare />
             </Link>
@@ -33,7 +33,7 @@ export default function QuestionsRoute() {
       </CardHeader>
       <CardContent>
         <Suspense fallback={<Loading />}>
-          <QuestionsData />
+          <CategoryData />
         </Suspense>
       </CardContent>
     </Card>

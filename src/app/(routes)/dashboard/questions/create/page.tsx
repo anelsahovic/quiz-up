@@ -1,5 +1,11 @@
-import React from 'react';
+import Loading from '@/components/Loading';
+import QuestionForm from '@/components/QuestionForm';
+import React, { Suspense } from 'react';
 
 export default function QuestionsCreateRoute() {
-  return <div>QuestionsCreateRoute</div>;
+  return (
+    <Suspense fallback={<Loading />}>
+      <QuestionForm formTitle="Create New Question" />
+    </Suspense>
+  );
 }

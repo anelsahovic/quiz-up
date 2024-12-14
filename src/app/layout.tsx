@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className} antialiased max-w-7xl mx-auto `}>
+        <body className={`${inter.className} antialiased `}>
           <Navbar />
           <MobileNavbar />
           {children}

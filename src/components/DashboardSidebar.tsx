@@ -5,6 +5,7 @@ import {
   ChartLine,
   ChevronRight,
   FileQuestion,
+  Hash,
   LogOut,
   Users,
 } from 'lucide-react';
@@ -110,6 +111,36 @@ export function DashboardSidebar() {
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
                     <Link href="/dashboard/users/create">
+                      <span>Create new</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              </SidebarMenuSub>
+            </CollapsibleContent>
+          </SidebarMenuItem>
+        </Collapsible>
+
+        <Collapsible className="group/collapsible">
+          <SidebarMenuItem>
+            <CollapsibleTrigger asChild>
+              <SidebarMenuButton>
+                <Hash />
+                <span>Categories</span>
+                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+              </SidebarMenuButton>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarMenuSub>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link href="/dashboard/categories">
+                      <span>Show All</span>
+                    </Link>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+                <SidebarMenuSubItem>
+                  <SidebarMenuSubButton asChild>
+                    <Link href="/dashboard/categories/create">
                       <span>Create new</span>
                     </Link>
                   </SidebarMenuSubButton>

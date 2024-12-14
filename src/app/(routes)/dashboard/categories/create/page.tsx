@@ -1,11 +1,11 @@
+import CategoryForm from '@/components/CategoryForm';
 import Loading from '@/components/Loading';
-import UserForm from '@/components/UserForm';
 import React, { Suspense } from 'react';
 
-export default function UsersCreateRoute() {
+export default function CreateCategory() {
   return (
     <Suspense fallback={<Loading />}>
-      <UserForm formTitle="Create New User" />
+      <CategoryForm formTitle="Create New Category" />
     </Suspense>
   );
 }
