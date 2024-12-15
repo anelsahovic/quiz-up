@@ -18,6 +18,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from './ui/alert-dialog';
+import SubmitButton from './SubmitButton';
+import { deleteQuestion } from '@/lib/actions/questions/actions';
+import { deleteCategory } from '@/lib/actions/categories/actions';
+import { redirect } from 'next/navigation';
 
 type Props = {
   type: string;
@@ -62,7 +66,23 @@ export default function TableActions({ type, id }: Props) {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction>Delete</AlertDialogAction>
+                <AlertDialogAction asChild>
+                  <form
+                    action={async () => {
+                      'use server';
+                      if (type === 'questions') {
+                        deleteQuestion(id);
+                      } else if (type === 'categories') {
+                        deleteCategory(id);
+                      } else if (type === 'users') {
+                        console.log('delete user');
+                      }
+                      redirect(`/dashboard/${type}`);
+                    }}
+                  >
+                    <SubmitButton text="Delete" />
+                  </form>
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

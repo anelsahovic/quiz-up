@@ -5,7 +5,7 @@ import React, { Suspense } from 'react';
 export default function CreateCategory() {
   return (
     <Suspense fallback={<Loading />}>
-      <CategoryForm formTitle="Create New Category" />
+      <CategoryForm actionType="create" formTitle="Create New Category" />
     </Suspense>
   );
 }

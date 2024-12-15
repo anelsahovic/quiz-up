@@ -1,9 +1,8 @@
 import { getAllQuestions } from '@/lib/queries/questions/queries';
 import DataTable from './DataTable';
-import { Question } from '@/types/types';
 
 export default async function QuestionsData() {
-  const questions: Question[] = await getAllQuestions();
+  const questions = await getAllQuestions();
   const formattedQuestions = questions.map((question) => ({
     id: question.id,
     question: question.question.slice(0, 10) + '...',

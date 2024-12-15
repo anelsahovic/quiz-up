@@ -14,6 +14,7 @@ export default async function EditCategory({ params }: Props) {
   return (
     <Suspense fallback={<Loading />}>
       <CategoryForm
+        actionType="update"
         formTitle="Edit Category"
         data={category}
         buttonText="Save"

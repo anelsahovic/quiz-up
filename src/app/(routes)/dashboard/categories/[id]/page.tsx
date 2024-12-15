@@ -1,3 +1,4 @@
+import SubmitButton from '@/components/SubmitButton';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,10 +12,11 @@ import {
 } from '@/components/ui/alert-dialog';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { deleteCategory } from '@/lib/actions/categories/actions';
 import { getCategoryById } from '@/lib/queries/categories/queries';
 import { Pencil, SquareArrowLeft, Trash } from 'lucide-react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -59,7 +61,18 @@ export default async function ShowCategory({ params }: Props) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Delete</AlertDialogAction>
+                  <AlertDialogAction asChild>
+                    <form
+                      action={async () => {
+                        'use server';
+
+                        deleteCategory(id);
+                        redirect(`/dashboard/categories`);
+                      }}
+                    >
+                      <SubmitButton text="Delete" />
+                    </form>
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
