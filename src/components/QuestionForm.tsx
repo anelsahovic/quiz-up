@@ -80,7 +80,6 @@ export default function QuestionForm({
     defaultDifficultyValue = data.difficulty;
     defaultCategoryValue = selectedCategory as string;
   } else {
-    console.log(fields.question.initialValue);
     defaultQuestionValue = fields.question.initialValue as string;
     defaultAnswerOneValue = fields.answerOne.initialValue as string;
     defaultAnswerTwoValue = fields.answerTwo.initialValue as string;
