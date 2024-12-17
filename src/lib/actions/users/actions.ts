@@ -19,9 +19,7 @@ export async function createUser(user: clerkUser) {
         email: user.email,
       },
     });
-  } catch (error) {
-    return [];
-  }
+  } catch (error) {}
 }
 
 export async function updateUser(lastResult: unknown, formData: FormData) {
