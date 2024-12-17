@@ -1,8 +1,8 @@
-'use client';
-import { useRouter } from 'next/router';
+'use server';
+import { redirect } from 'next/navigation';
 
-export function redirectToPage(url: string) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const router = useRouter();
-  router.push(url);
-}
+export const checkIsAdmin = async (userRole: string) => {
+  if (userRole !== 'ADMIN') {
+    redirect('/');
+  }
+};

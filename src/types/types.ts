@@ -18,9 +18,18 @@ export type Category = {
 
 export type User = {
   id: string;
+  clerkUserId: string;
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   role: Role;
+};
+
+export type clerkUser = {
+  clerkUserId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
 };

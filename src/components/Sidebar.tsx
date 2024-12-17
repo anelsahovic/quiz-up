@@ -11,7 +11,11 @@ import {
 import Image from 'next/image';
 import SidebarLinks from './SidebarLinks';
 
-export default function Sidebar() {
+type Props = {
+  isAdmin: boolean;
+};
+
+export default function Sidebar({ isAdmin }: Props) {
   return (
     <div>
       <Sheet>
@@ -37,7 +41,7 @@ export default function Sidebar() {
             </SheetDescription>
           </SheetHeader>
 
-          <SidebarLinks />
+          <SidebarLinks isAdmin={isAdmin} />
 
           <SheetFooter className="text-slate-200">
             <small>&copy; 2024 QuizUp. All rights reserved.</small>

@@ -5,7 +5,7 @@ export default async function QuestionsData() {
   const questions = await getAllQuestions();
   const formattedQuestions = questions.map((question) => ({
     id: question.id,
-    question: question.question.slice(0, 10) + '...',
+    question: question.question.slice(0, 20) + '...',
     options: question.options,
     correctAnswer: question.options[question.correctAnswer],
     category: question.category.name,

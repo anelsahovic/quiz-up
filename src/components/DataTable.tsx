@@ -33,7 +33,7 @@ export default function DataTable({ data, type }: Props) {
     );
   }
   return (
-    <div className="overflow-x-auto w-full rounded-md shadow">
+    <div className="overflow-auto w-full rounded-md shadow">
       <Table className="min-w-full rounded-md">
         <TableHeader>
           <TableRow>

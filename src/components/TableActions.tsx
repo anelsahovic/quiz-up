@@ -22,6 +22,9 @@ import SubmitButton from './SubmitButton';
 import { deleteQuestion } from '@/lib/actions/questions/actions';
 import { deleteCategory } from '@/lib/actions/categories/actions';
 import { redirect } from 'next/navigation';
+import { DELETE } from '@/app/app/api/delete-user/route';
+import { getUserByClerkId, getUserById } from '@/lib/queries/users/queries';
+import { deleteUser } from '@/lib/actions/users/actions';
 
 type Props = {
   type: string;
@@ -75,7 +78,9 @@ export default function TableActions({ type, id }: Props) {
                       } else if (type === 'categories') {
                         deleteCategory(id);
                       } else if (type === 'users') {
-                        console.log('delete user');
+                        const userId = await getUserById(id);
+                        DELETE(userId?.clerkUserId as string);
+                        deleteUser(id);
                       }
                       redirect(`/dashboard/${type}`);
                     }}

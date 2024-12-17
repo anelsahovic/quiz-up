@@ -22,9 +22,11 @@ export default function UsersRoute() {
             <CardDescription>Manage all the users</CardDescription>
           </div>
           <div>
-            <Link className={buttonVariants()} href="/dashboard/users/create">
+            <span
+              className={`${buttonVariants()} opacity-50 hover:bg-primary cursor-not-allowed`}
+            >
               New <PlusSquare />
-            </Link>
+            </span>
           </div>
         </div>
       </CardHeader>

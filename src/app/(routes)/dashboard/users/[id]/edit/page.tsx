@@ -1,15 +1,28 @@
+import Loading from '@/components/Loading';
 import UserForm from '@/components/UserForm';
+import { getUserById } from '@/lib/queries/users/queries';
 import { User } from '@/types/types';
-import React from 'react';
+import { notFound } from 'next/navigation';
+import React, { Suspense } from 'react';
 
-export default function EditUser() {
-  const user: User = {
-    id: 'uvdawibdwaondboawda',
-    firstName: 'John',
-    lastName: 'Doe',
-    username: 'johndoe',
-    email: 'johndoe@mail.com',
-    role: 'PLAYER',
-  };
-  return <UserForm formTitle="Edit User" buttonText="Save" data={user} />;
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditUser({ params }: Props) {
+  const { id } = await params;
+  const user = await getUserById(id);
+  if (!user) {
+    return notFound();
+  }
+  return (
+    <Suspense fallback={<Loading />}>
+      <UserForm
+        formTitle="Edit User"
+        buttonText="Save"
+        data={user}
+        actionType="update"
+      />
+    </Suspense>
+  );
 }

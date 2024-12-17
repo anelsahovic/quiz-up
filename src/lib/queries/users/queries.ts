@@ -14,14 +14,34 @@ export const getAllUsers = async () => {
   try {
     return await prisma.user.findMany();
   } catch (error) {
-    [];
+    return [];
   }
 };
 
-export async function getUserById(userId: string) {
-  return await prisma.user.findUnique({
-    where: { id: userId },
-  });
+// Fetch user by ID
+export async function getUserById(id: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: id },
+    });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  } catch (error) {}
+}
+
+// Fetch user by Clerk ID
+export async function getUserByClerkId(clerkUserId: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { clerkUserId: clerkUserId },
+    });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return user;
+  } catch (error) {}
 }
 
 export async function getUserName(userId: string) {

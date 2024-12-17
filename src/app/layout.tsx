@@ -3,7 +3,7 @@ import { Jersey_10, Inter } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import MobileNavbar from '@/components/MobileNavbar';
-import Navbar from '@/components/Navbar';
+import DesktopNavbar from '@/components/DesktopNavbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${inter.className} antialiased `}>
-          <Navbar />
+          <DesktopNavbar />
           <MobileNavbar />
           {children}
         </body>

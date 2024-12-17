@@ -6,7 +6,11 @@ import Sidebar from './Sidebar';
 import { Play } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-export default function Navbar() {
+type Props = {
+  isAdmin: boolean;
+};
+
+export default function Navbar({ isAdmin }: Props) {
   const pathname = usePathname();
   return (
     <div className={`${pathname.startsWith('/dashboard') && 'hidden'} px-6`}>
@@ -28,7 +32,7 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="w-1/3 flex justify-center items-center">
-          <Sidebar />
+          <Sidebar isAdmin={isAdmin} />
         </div>
       </div>
     </div>

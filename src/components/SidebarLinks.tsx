@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SheetTrigger } from './ui/sheet';
+import { User } from '@/types/types';
 
 const sidebarLinks = [
   {
@@ -43,18 +44,24 @@ const infoLinks = [
   },
 ];
 
-export default function SidebarLinks() {
+type Props = {
+  isAdmin: boolean;
+};
+
+export default function SidebarLinks({ isAdmin }: Props) {
   const pathname = usePathname();
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5">
       <SheetTrigger asChild>
-        <Link
-          className="flex gap-1 uppercase font-bold text-white p-1  border-slate-800 hover:scale-105 transition-all duration-300"
-          href="/dashboard"
-        >
-          <MonitorCog />
-          Dashboard
-        </Link>
+        {isAdmin && (
+          <Link
+            className="flex gap-1 uppercase font-bold text-white p-1  border-slate-800 hover:scale-105 transition-all duration-300"
+            href="/dashboard"
+          >
+            <MonitorCog />
+            Dashboard
+          </Link>
+        )}
       </SheetTrigger>
       <SheetTrigger asChild>
         <Link

@@ -14,16 +14,30 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { checkIsAdmin } from '@/lib/helperFunctions';
+import { getUserByClerkId, getUserById } from '@/lib/queries/users/queries';
 import { SignOutButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await currentUser();
+  const clerkUser = await currentUser();
+
+  if (!clerkUser?.id) {
+    return redirect('/'); // Redirect to homepage if the Clerk user is unavailable
+  }
+
+  const user = await getUserByClerkId(clerkUser.id);
+  // Redirect unauthorized users
+  if (user?.role !== 'ADMIN') {
+    return redirect('/');
+  }
+
   return (
     <SidebarProvider>
       <DashboardSidebar />
@@ -38,18 +52,18 @@ export default async function DashboardLayout({
               <DropdownMenuTrigger>
                 <Avatar className="shadow-md">
                   <AvatarFallback className="text-primary">
-                    {`${user?.firstName && user?.firstName[0]}${
-                      user?.lastName && user?.lastName[0]
+                    {`${clerkUser?.firstName && clerkUser?.firstName[0]}${
+                      clerkUser?.lastName && clerkUser?.lastName[0]
                     }`}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel className="my-0 pb-0">
-                  {user?.fullName}
+                  {clerkUser?.fullName}
                 </DropdownMenuLabel>
                 <DropdownMenuLabel className="font-normal m-0 ml-1 p-0 px-1 text-slate-700">
-                  @{user?.username}
+                  @{clerkUser?.username}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
