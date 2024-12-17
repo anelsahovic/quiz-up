@@ -11,7 +11,11 @@ import {
 } from 'date-fns';
 
 export const getAllUsers = async () => {
-  return await prisma.user.findMany();
+  try {
+    return await prisma.user.findMany();
+  } catch (error) {
+    [];
+  }
 };
 
 export async function getUserById(userId: string) {

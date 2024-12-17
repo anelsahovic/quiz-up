@@ -33,57 +33,52 @@ export default function DataTable({ data, type }: Props) {
     );
   }
   return (
-    <div className="border shadow rounded-sm max-w-[300px] mx-auto sm:max-w-[600px] lg:max-w-[1000px]  grow">
-      <div className="overflow-x-auto w-full">
-        <Table className="min-w-full">
-          <TableHeader>
-            <TableRow>
-              {columnNames.map((columnName: string, index: number) => (
-                <TableHead
-                  className={`px-4 py-2 whitespace-nowrap overflow-hidden bg-slate-800 text-slate-100 ${
-                    index === 0 ? 'min-w-[50px]' : 'min-w-[100px]'
-                  }`}
-                  key={index}
-                >
-                  {columnName.toUpperCase()}
-                </TableHead>
-              ))}
+    <div className="overflow-x-auto w-full rounded-md shadow">
+      <Table className="min-w-full rounded-md">
+        <TableHeader>
+          <TableRow>
+            {columnNames.map((columnName: string, index: number) => (
               <TableHead
-                align="right"
-                className="text-right px-4 py-2 whitespace-nowrap overflow-hidden bg-slate-800 text-slate-100 min-w-[150px]"
+                className={`px-4 py-2 whitespace-nowrap  overflow-hidden bg-slate-800 text-slate-100 ${
+                  index === 0 ? 'min-w-[70px]' : ''
+                }`}
+                key={index}
               >
-                ACTIONS
+                {columnName.toUpperCase()}
               </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                {columnNames.map((columnName, colIndex) => (
-                  <TableCell
-                    className={`px-4 py-2 whitespace-nowrap overflow-hidden ${
-                      colIndex === 0
-                        ? 'max-w-[50px] overflow-hidden'
-                        : 'min-w-[100px]'
-                    }`}
-                    key={colIndex}
-                  >
-                    {row[columnName] && row[columnName] !== undefined
-                      ? row[columnName].toString()
-                      : ''}
-                  </TableCell>
-                ))}
-                <TableCell align="right">
-                  <TableActions
-                    type={type.toLowerCase()}
-                    id={row?.id as string}
-                  />
-                </TableCell>
-              </TableRow>
             ))}
-          </TableBody>
-        </Table>
-      </div>
+            <TableHead className="text-center px-4 py-2 whitespace-nowrap overflow-hidden bg-slate-800 text-slate-100 min-w-[150px]">
+              ACTIONS
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((row, rowIndex) => (
+            <TableRow key={rowIndex}>
+              {columnNames.map((columnName, colIndex) => (
+                <TableCell
+                  className={`px-4 py-2 whitespace-nowrap overflow-hidden ${
+                    colIndex === 0
+                      ? 'max-w-[100px] overflow-hidden text-xs italic'
+                      : ''
+                  }`}
+                  key={colIndex}
+                >
+                  {row[columnName] && row[columnName] !== undefined
+                    ? row[columnName].toString()
+                    : ''}
+                </TableCell>
+              ))}
+              <TableCell align="center">
+                <TableActions
+                  type={type.toLowerCase()}
+                  id={row?.id as string}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }

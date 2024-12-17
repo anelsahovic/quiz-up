@@ -37,7 +37,7 @@ export default function TableActions({ type, id }: Props) {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="center">
         <DropdownMenuItem asChild>
           <Link href={`/dashboard/${type}/${id}`}>
             <Eye className="size-4 mr-2" /> View
