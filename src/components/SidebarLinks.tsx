@@ -66,7 +66,7 @@ export default function SidebarLinks({ isAdmin }: Props) {
       <SheetTrigger asChild>
         <Link
           className="flex uppercase font-bold  py-2 px-3  justify-center items-center gap-2 text-fuchsia-200 border-2 rounded-lg border-fuchsia-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#ff00dd,0_0_15px_#ff00dd,0_0_30px_#ff00dd] animate-pulse duration-1000"
-          href="/play"
+          href="/lobby"
         >
           <Play />
           Play New Quiz

@@ -6,6 +6,8 @@ import { Loader2 } from 'lucide-react';
 
 type Props = {
   text: string;
+  icon?: React.ReactNode;
+  customClassName?: string;
   variant?:
     | 'default'
     | 'destructive'
@@ -15,7 +17,12 @@ type Props = {
     | 'link';
 };
 
-export default function SubmitButton({ text, variant }: Props) {
+export default function SubmitButton({
+  text,
+  icon,
+  variant,
+  customClassName,
+}: Props) {
   const { pending } = useFormStatus();
 
   return (
@@ -24,7 +31,7 @@ export default function SubmitButton({ text, variant }: Props) {
         <Button
           variant={`${variant ? variant : 'default'}`}
           disabled
-          className="w-full"
+          className={`w-full ${customClassName}`}
         >
           <Loader2 className="animate-spin" /> Please wait...
         </Button>
@@ -32,9 +39,9 @@ export default function SubmitButton({ text, variant }: Props) {
         <Button
           variant={`${variant ? variant : 'default'}`}
           type="submit"
-          className="w-full"
+          className={`w-full ${customClassName}`}
         >
-          {text}
+          {icon} {text}
         </Button>
       )}
     </>

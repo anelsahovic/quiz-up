@@ -13,7 +13,12 @@ type Props = {
 export default function Navbar({ isAdmin }: Props) {
   const pathname = usePathname();
   return (
-    <div className={`${pathname.startsWith('/dashboard') && 'hidden'} px-6`}>
+    <div
+      className={`${
+        pathname.startsWith('/dashboard') ||
+        (pathname.startsWith('/lobby') && 'hidden')
+      } px-6`}
+    >
       <div className="hidden relative sm:flex py-2 px-6 items-center justify-between max-w-4xl mt-2 mx-auto rounded-full shadow-lg bg-gradient-to-t from-primary to-[#7116bb] text-white">
         <div className="w-1/3">
           <Link href="/" className="flex items-center gap-2 justify-center">
@@ -25,7 +30,7 @@ export default function Navbar({ isAdmin }: Props) {
         </div>
         <div className="hidden lg:flex ">
           <Link
-            href="/play"
+            href="/lobby"
             className=" py-2 px-3 flex justify-center items-center gap-2 text-fuchsia-200 border-2 rounded-lg border-fuchsia-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#ff00dd,0_0_15px_#ff00dd,0_0_30px_#ff00dd] animate-pulse duration-1000"
           >
             <Play /> Play

@@ -22,3 +22,8 @@ export const userSchema = z.object({
   email: z.string(),
   role: z.enum(['ADMIN', 'PLAYER']),
 });
+
+export const lobbySchema = z.object({
+  category: z.string().min(1, 'Please choose a category'),
+  numberOfQuestions: z.string().min(1, 'Please choose a number of questions'),
+});

@@ -1,5 +1,19 @@
+import { getCategoryById } from '@/lib/queries/categories/queries';
 import React from 'react';
 
-export default function Play() {
-  return <div>Play</div>;
+type Props = {
+  searchParams: Promise<{ category: string; questions: string }>;
+};
+
+export default async function Play({ searchParams }: Props) {
+  const { category, questions } = await searchParams;
+  const fetchedCategory = await getCategoryById(category);
+  // console.log(categoryId, numberOfQuestions);
+  return (
+    <div>
+      Play <br />
+      {fetchedCategory?.name} <br />
+      {questions}
+    </div>
+  );
 }

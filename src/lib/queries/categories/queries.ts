@@ -9,7 +9,11 @@ export const getAllCategories = async () => {
 };
 
 export const getCategoryById = async (id: string) => {
-  return prisma.category.findUnique({
-    where: { id: id },
-  });
+  try {
+    return prisma.category.findUnique({
+      where: { id: id },
+    });
+  } catch (error) {
+    throw new Error(`Category with ID ${id} not found.`);
+  }
 };
