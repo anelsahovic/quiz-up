@@ -1,5 +1,10 @@
-import React from 'react';
+import Home from '@/components/Home';
+import LoadingQuiz from '@/components/LoadingQuiz';
+import { Suspense } from 'react';
 
-export default function HomePageRoute() {
-  return <div>HomePageRoute</div>;
+export default async function HomePageRoute() {
+  return;
+  <Suspense fallback={<LoadingQuiz text="Loading Home..." />}>
+    <Home />
+  </Suspense>;
 }

@@ -25,7 +25,7 @@ export default function BottomNav({ isAdmin }: Props) {
       <div className="flex items-center justify-around py-3 px-2 border-t">
         <div>
           <Link href="/home">
-            <House className={`${pathname === '/' && 'text-primary'}`} />
+            <House className={`${pathname === '/home' && 'text-primary'}`} />
           </Link>
         </div>
         <div>

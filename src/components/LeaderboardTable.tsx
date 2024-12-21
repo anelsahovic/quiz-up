@@ -92,7 +92,6 @@ export default async function LeaderboardTable() {
 
   // Call the function and log the result
   const results = await getGroupedResults();
-  console.log(results);
   const sortedResults = results.sort((a, b) => b.points - a.points);
 
   const firstThree = sortedResults.slice(0, 3);

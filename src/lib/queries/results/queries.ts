@@ -13,3 +13,11 @@ export async function getGroupedResults() {
     return await prisma.user.findMany({});
   } catch (error) {}
 }
+
+export async function getResultByUser(userId: string) {
+  try {
+    return await prisma.result.findMany({
+      where: { userId: userId },
+    });
+  } catch (error) {}
+}
