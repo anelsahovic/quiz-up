@@ -26,4 +26,9 @@ export const userSchema = z.object({
 export const lobbySchema = z.object({
   category: z.string().min(1, 'Please choose a category'),
   numberOfQuestions: z.string().min(1, 'Please choose a number of questions'),
+  difficulty: z.enum(['EASY', 'MEDIUM', 'HARD']),
+});
+
+export const answersSchema = z.object({
+  answer: z.string(),
 });

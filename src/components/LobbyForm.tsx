@@ -22,7 +22,8 @@ type Props = {
 };
 
 export default function LobbyForm({ categories }: Props) {
-  const [value, setValue] = React.useState('5');
+  const [numOfQuestions, setNumOfQuestions] = React.useState('5');
+  const [difficulty, setDifficulty] = React.useState('EASY');
   const [lastResult, action] = useActionState(storeQuizSettings, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -37,11 +38,14 @@ export default function LobbyForm({ categories }: Props) {
     shouldRevalidate: 'onInput',
   });
 
-  const options = [
+  const questionsOption = [
     { value: '5', label: '5 Questions' },
     { value: '10', label: '10 Questions' },
-    { value: '15', label: '15 Questions' },
-    { value: '20', label: '20 Questions' },
+  ];
+  const difficultyOption = [
+    { value: 'EASY', label: 'Easy' },
+    { value: 'MEDIUM', label: 'Medium' },
+    { value: 'HARD', label: 'Hard' },
   ];
   return (
     <form
@@ -97,14 +101,14 @@ export default function LobbyForm({ categories }: Props) {
             </p>
           )}
           <RadioGroup
-            value={value}
+            value={numOfQuestions}
             name={fields.numberOfQuestions.name}
             key={fields.numberOfQuestions.key}
             defaultValue={fields.numberOfQuestions.initialValue}
-            onValueChange={setValue}
+            onValueChange={setNumOfQuestions}
             className="flex flex-col gap-4 w-full  md:grid md:grid-cols-2"
           >
-            {options.map((option) => (
+            {questionsOption.map((option) => (
               <div key={option.value} className="flex items-center w-full">
                 <RadioGroupItem
                   value={option.value}
@@ -117,7 +121,53 @@ export default function LobbyForm({ categories }: Props) {
                 >
                   <span
                     className={`flex uppercase font-bold  p-3 md:px-16 justify-center items-center hover:scale-105 text-fuchsia-200 border-2 rounded-lg ${
-                      value === option.value
+                      numOfQuestions === option.value
+                        ? 'border-fuchsia-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#ff00dd,0_0_15px_#ff00dd,0_0_30px_#ff00dd] animate-pulse duration-1000'
+                        : ''
+                    }`}
+                  >
+                    {option.label}
+                  </span>
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </div>
+
+        <div className="flex flex-col text-center gap-2">
+          {fields.difficulty.errors ? (
+            <div className="flex items-center justify-center font-semibold text-rose-500 gap-1">
+              <OctagonAlert className="size-5" />
+              <p className="text-rose-500">Please choose a difficulty</p>
+              {/* <p>{fields.numberOfQuestions.errors}</p> */}
+            </div>
+          ) : (
+            <p className="text-white font-semibold text-center">
+              Choose a difficulty
+            </p>
+          )}
+          <RadioGroup
+            value={difficulty}
+            name={fields.difficulty.name}
+            key={fields.difficulty.key}
+            defaultValue={fields.difficulty.initialValue}
+            onValueChange={setDifficulty}
+            className="flex flex-col gap-4 w-full  md:grid md:grid-cols-3"
+          >
+            {difficultyOption.map((option) => (
+              <div key={option.value} className="flex items-center w-full">
+                <RadioGroupItem
+                  value={option.value}
+                  id={option.value}
+                  className="sr-only w-full"
+                />
+                <Label
+                  htmlFor={option.value}
+                  className="w-full cursor-pointer "
+                >
+                  <span
+                    className={`flex uppercase font-bold  p-3 md:px-16 justify-center items-center hover:scale-105 text-fuchsia-200 border-2 rounded-lg ${
+                      difficulty === option.value
                         ? 'border-fuchsia-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#ff00dd,0_0_15px_#ff00dd,0_0_30px_#ff00dd] animate-pulse duration-1000'
                         : ''
                     }`}

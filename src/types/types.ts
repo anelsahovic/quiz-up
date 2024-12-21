@@ -33,3 +33,17 @@ export type clerkUser = {
   username: string;
   email: string;
 };
+
+export type Result = {
+  userId: string;
+  numberOfQuestions: number;
+  correctlyAnswered: number;
+  categoryId: string;
+  difficulty: DifficultyLevel;
+  points: number;
+};
+
+export type UserResult = {
+  user: { firstName: string; lastName: string };
+  points: number;
+};

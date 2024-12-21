@@ -11,23 +11,27 @@ type Props = {
 
 export default function BottomNav({ isAdmin }: Props) {
   const pathname = usePathname();
+
+  const shouldHide =
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/lobby') ||
+    pathname.startsWith('/play');
   return (
     <nav
-      className={`${
-        pathname.startsWith('/lobby') ||
-        (pathname.startsWith('/play') && 'hidden')
+      className={`bg-white ${
+        shouldHide ? 'hidden' : ''
       } fixed bottom-0 w-full sm:hidden `}
     >
       <div className="flex items-center justify-around py-3 px-2 border-t">
         <div>
-          <Link href="/">
+          <Link href="/home">
             <House className={`${pathname === '/' && 'text-primary'}`} />
           </Link>
         </div>
         <div>
-          <Link href="/scoreboard">
+          <Link href="/leaderboard">
             <Medal
-              className={`${pathname === '/scoreboard' && 'text-primary'}`}
+              className={`${pathname === '/leaderboard' && 'text-primary'}`}
             />
           </Link>
         </div>

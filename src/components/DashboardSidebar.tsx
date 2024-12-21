@@ -35,7 +35,7 @@ export function DashboardSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="py-5 px-0 items-start">
         <SidebarMenuItem>
-          <Link href="/">
+          <Link href="/home">
             <SidebarMenuButton>
               <Image
                 src="/quiz_up_logo.png"
@@ -153,7 +153,7 @@ export function DashboardSidebar() {
 
       <SidebarFooter>
         <SidebarMenuItem>
-          <Link href="/">
+          <Link href="/home">
             <SidebarMenuButton className="flex items-center border-t">
               <LogOut className="rotate-180" />
               <span className="text-base">Exit Dashboard</span>

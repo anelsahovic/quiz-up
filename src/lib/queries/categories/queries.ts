@@ -8,12 +8,10 @@ export const getAllCategories = async () => {
   }
 };
 
-export const getCategoryById = async (id: string) => {
+export const getCategoryById = async (categoryId: string) => {
   try {
-    return prisma.category.findUnique({
-      where: { id: id },
+    return prisma.category.findFirstOrThrow({
+      where: { id: categoryId },
     });
-  } catch (error) {
-    throw new Error(`Category with ID ${id} not found.`);
-  }
+  } catch (error) {}
 };

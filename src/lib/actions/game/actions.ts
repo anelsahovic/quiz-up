@@ -11,8 +11,10 @@ export const storeQuizSettings = (lastResult: unknown, formData: FormData) => {
     return submission.reply();
   }
 
+  // save to local storage
+
   // redirect to play
   return redirect(
-    `/play?category=${submission.value.category}&questions=${submission.value.numberOfQuestions}`
+    `/play?category=${submission.value.category}&questions=${submission.value.numberOfQuestions}&difficulty=${submission.value.difficulty}`
   );
 };

@@ -1,19 +1,28 @@
+import LoadingQuiz from '@/components/LoadingQuiz';
+import PlayQuiz from '@/components/PlayQuiz';
 import { getCategoryById } from '@/lib/queries/categories/queries';
-import React from 'react';
+import { getQuizQuestions } from '@/lib/queries/questions/queries';
+import { User } from '@/types/types';
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
+import React, { Suspense } from 'react';
 
 type Props = {
-  searchParams: Promise<{ category: string; questions: string }>;
+  searchParams: Promise<{
+    category: string;
+    questions: string;
+    difficulty: string;
+  }>;
 };
 
 export default async function Play({ searchParams }: Props) {
-  const { category, questions } = await searchParams;
-  const fetchedCategory = await getCategoryById(category);
-  // console.log(categoryId, numberOfQuestions);
+  const clerkUser = await currentUser();
+  if (clerkUser === null) {
+    return redirect('/');
+  }
   return (
-    <div>
-      Play <br />
-      {fetchedCategory?.name} <br />
-      {questions}
-    </div>
+    <Suspense fallback={<LoadingQuiz text="Starting quiz..." />}>
+      <PlayQuiz clerkUserId={clerkUser.id} searchParams={searchParams} />
+    </Suspense>
   );
 }

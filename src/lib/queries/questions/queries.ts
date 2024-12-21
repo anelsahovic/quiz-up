@@ -1,4 +1,5 @@
 import prisma from '@/lib/db';
+import { DifficultyLevel } from '@prisma/client';
 
 export const getAllQuestions = async () => {
   try {
@@ -30,3 +31,38 @@ export const getQuestionById = async (id: string) => {
     },
   });
 };
+
+export const getQuizQuestions = async (
+  categoryId: string,
+  difficulty: DifficultyLevel,
+  numberOfQuestions: number
+) => {
+  try {
+    const allQuestions = await prisma.question.findMany({
+      where: { categoryId: categoryId, difficulty: difficulty },
+    });
+    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, numberOfQuestions);
+  } catch (error) {}
+};
+
+export async function getQuizQuestionsWithRetry(
+  categoryId: string,
+  difficulty: DifficultyLevel,
+  numberOfQuestions: number
+) {
+  let isQuestions = false;
+  while (!isQuestions) {
+    try {
+      const allQuestions = await prisma.question.findMany({
+        where: { categoryId: categoryId, difficulty: difficulty },
+      });
+      const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+
+      if (shuffled) {
+        isQuestions = true;
+        return shuffled.slice(0, numberOfQuestions); // User found
+      }
+    } catch (error) {}
+  }
+}

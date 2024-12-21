@@ -67,7 +67,7 @@ export default async function DashboardLayout({
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/" className="w-full">
+                  <Link href="/home" className="w-full">
                     Home
                   </Link>
                 </DropdownMenuItem>

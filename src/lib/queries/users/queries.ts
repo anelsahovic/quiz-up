@@ -1,4 +1,5 @@
 import prisma from '@/lib/db';
+import { User } from '@/types/types';
 import {
   subMonths,
   startOfDay,
@@ -42,6 +43,22 @@ export async function getUserByClerkId(clerkUserId: string) {
     }
     return user;
   } catch (error) {}
+}
+
+export async function getUserByClerkIdWithRetry(clerkUserId: string) {
+  let isUser = false;
+  while (!isUser) {
+    try {
+      const user = await prisma.user.findUnique({
+        where: { clerkUserId: clerkUserId },
+      });
+
+      if (user) {
+        isUser = true;
+        return user; // User found
+      }
+    } catch (error) {}
+  }
 }
 
 export async function getUserName(userId: string) {

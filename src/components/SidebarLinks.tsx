@@ -21,13 +21,13 @@ import { User } from '@/types/types';
 
 const sidebarLinks = [
   {
-    href: '/',
+    href: '/home',
     title: 'Home',
     id: 0,
   },
   {
-    href: '/scoreboard',
-    title: 'Scoreboard',
+    href: '/leaderboard',
+    title: 'LeaderBoard',
     id: 1,
   },
 ];

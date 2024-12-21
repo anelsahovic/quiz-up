@@ -36,12 +36,14 @@ model Question {
 }
 
 model Result {
-  id                String   @id @default(uuid())
+  id                String          @id @default(uuid())
   userId            String
-  user              User     @relation(fields: [userId], references: [id])
+  user              User            @relation(fields: [userId], references: [id])
   numberOfQuestions Int
   correctlyAnswered Int
-  categoryPlayed    Category @relation(fields: [categoryId], references: [id])
+  category          Category        @relation(fields: [categoryId], references: [id])
+  difficulty        DifficultyLevel
+  points            Int
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

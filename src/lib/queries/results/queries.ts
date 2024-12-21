@@ -7,3 +7,9 @@ export async function getAllResults() {
     return [];
   }
 }
+
+export async function getGroupedResults() {
+  try {
+    return await prisma.user.findMany({});
+  } catch (error) {}
+}

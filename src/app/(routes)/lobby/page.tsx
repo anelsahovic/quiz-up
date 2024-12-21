@@ -10,7 +10,7 @@ export default async function Lobby() {
   return (
     <div className="w-full h-screen max-h-screen bg-gradient-to-b from-primary to-[#7116bb] flex flex-col justify-evenly items-center p-2 py-5 relative">
       <div className="absolute top-2 left-2">
-        <Link href="/" className="text-white/80 p-2">
+        <Link href="/home" className="text-white/80 p-2">
           <SquareArrowLeft className="size-8" />
         </Link>
       </div>
