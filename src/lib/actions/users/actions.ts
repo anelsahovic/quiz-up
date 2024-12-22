@@ -13,11 +13,38 @@ export async function createUser(user: clerkUser) {
     return await prisma.user.create({
       data: {
         clerkUserId: user.clerkUserId,
+        imageUrl: user.imageUrl,
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
         email: user.email,
       },
+    });
+  } catch (error) {}
+}
+
+export async function updateUserWH(user: clerkUser) {
+  try {
+    return await prisma.user.update({
+      where: {
+        clerkUserId: user.clerkUserId,
+      },
+      data: {
+        clerkUserId: user.clerkUserId,
+        imageUrl: user.imageUrl,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+      },
+    });
+  } catch (error) {}
+}
+
+export async function deleteUserWH(clerkUserId: string) {
+  try {
+    return await prisma.user.delete({
+      where: { clerkUserId: clerkUserId },
     });
   } catch (error) {}
 }

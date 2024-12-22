@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -20,7 +20,6 @@ export default async function Home() {
   const user = await getUserByClerkId(clerkUser?.id as string);
 
   const results = await getResultByUser(user?.id as string);
-  console.log(results);
   let points = 0;
   if (results) {
     points = results.reduce((sum, result) => sum + result.points, 0);
@@ -30,18 +29,27 @@ export default async function Home() {
     clerkUser?.lastName?.[0] ?? ''
   }`;
   const name = `${clerkUser?.firstName ?? ''} ${clerkUser?.lastName ?? ''}`;
-
   return (
     <div className="w-screen h-screen p-4 flex flex-col items-center ">
       <div className="h-1/2 max-w-[800px] w-full flex flex-col items-center gap-4 sm:mt-[85px]">
-        <div className="flex flex-col items-center justify-center w-full h-1/2 bg-gradient-to-t from-primary to-[#7116bb] text-white rounded-xl py-1 px-6 shadow-lg relative">
+        <div className="flex flex-col items-center justify-center w-full h-1/2 bg-gradient-to-t from-primary to-[#7116bb] text-white rounded-xl py-1 px-6 shadow-lg relative hover:scale-105 transition-all duration-300">
           {/* upper section */}
           <div className="flex items-center justify-around w-full ">
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <Avatar className="size-12 sm:size-14">
-                <AvatarFallback className=" bg-gradient-to-r from-[#ff5858] to-[#f09819] text-white font-bold  border-2 border-white shadow-lg">
-                  {initials}
-                </AvatarFallback>
+              <Avatar
+                className={`size-12 sm:size-14 border-2  ${
+                  clerkUser?.hasImage
+                    ? 'bg-gradient-to-r from-[#ff5858] to-[#f09819] border-transparent bg-clip-border'
+                    : ''
+                } `}
+              >
+                {clerkUser?.hasImage ? (
+                  <AvatarImage src={user?.imageUrl} />
+                ) : (
+                  <AvatarFallback className=" bg-gradient-to-r from-[#ff5858] to-[#f09819] text-white font-bold  shadow-lg">
+                    {initials}
+                  </AvatarFallback>
+                )}
               </Avatar>
 
               {/* Welcome Message */}
@@ -69,13 +77,23 @@ export default async function Home() {
             </div>
 
             {/* Progress Bar */}
+
             <div className="relative w-full bg-gray-300 rounded-full h-7">
               <div
-                className="absolute top-0 left-0 bg-gradient-to-r from-[#ff5858] to-[#f09819] h-7 rounded-full"
+                className={`absolute top-0 left-0 h-7 rounded-full ${
+                  points > 0
+                    ? 'bg-gradient-to-r from-[#ff5858] to-[#f09819]'
+                    : 'bg-gray-300'
+                }`}
                 style={{ width: '60%' }}
               >
-                <span className="font-semibold text-sm text-slate-100 ml-2">
-                  {points} pts
+                <span
+                  className={`font-semibold text-sm  ml-2 ${
+                    points > 0 ? 'text-slate-100' : 'text-slate-400'
+                  }`}
+                >
+                  {points > 0 ? points : 'You have no '}
+                  pts
                 </span>{' '}
               </div>
             </div>
@@ -86,7 +104,7 @@ export default async function Home() {
           <div className="bg-gradient-to-br from-[#f1e9e0]  to-[#e2d1c3] w-full rounded-xl shadow hover:shadow-xl transform hover:scale-105 transition duration-300 flex items-center justify-center">
             <Link
               href="/leaderboard"
-              className="flex flex-col items-center justify-between text-white text-center "
+              className="flex flex-col items-center justify-between text-white text-center w-full h-full"
             >
               {/* Title */}
               <h1 className="font-bold text-lg text-yellow-900">Leaderboard</h1>
@@ -112,7 +130,7 @@ export default async function Home() {
           <div className="bg-gradient-to-br from-[#accbee]  to-[#c1d6f4] w-full rounded-xl shadow hover:shadow-xl transform hover:scale-105 transition duration-300 flex items-center justify-center">
             <Link
               href="/my-profile"
-              className="flex flex-col items-center justify-between text-white text-center space-y-1"
+              className="flex flex-col items-center justify-between text-white text-center space-y-1 w-full h-full"
             >
               {/* Title */}
               <h1 className="font-bold text-lg text-indigo-900">Profile</h1>

@@ -19,6 +19,7 @@ export type Category = {
 export type User = {
   id: string;
   clerkUserId: string;
+  imageUrl: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -28,6 +29,7 @@ export type User = {
 
 export type clerkUser = {
   clerkUserId: string;
+  imageUrl: string;
   firstName: string;
   lastName: string;
   username: string;
@@ -44,6 +46,6 @@ export type Result = {
 };
 
 export type UserResult = {
-  user: { firstName: string; lastName: string };
+  user: { imageUrl: string; firstName: string; lastName: string };
   points: number;
 };

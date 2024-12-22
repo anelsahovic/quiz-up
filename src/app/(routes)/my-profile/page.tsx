@@ -1,5 +1,11 @@
-export default function MyProfile() {
+import LoadingQuiz from '@/components/LoadingQuiz';
+import MyProfile from '@/components/MyProfile';
+import { Suspense } from 'react';
+
+export default function MyProfileRoute() {
   return (
-    <div className="h-screen flex items-center justify-center">My profile</div>
+    <Suspense fallback={<LoadingQuiz text="Loading Profile..." />}>
+      <MyProfile />
+    </Suspense>
   );
 }

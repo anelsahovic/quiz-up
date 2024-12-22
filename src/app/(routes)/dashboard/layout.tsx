@@ -1,5 +1,5 @@
 import { DashboardSidebar } from '@/components/DashboardSidebar';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,6 +51,7 @@ export default async function DashboardLayout({
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="shadow-md">
+                  <AvatarImage src={user?.imageUrl} />
                   <AvatarFallback className="text-primary">
                     {`${clerkUser?.firstName && clerkUser?.firstName[0]}${
                       clerkUser?.lastName && clerkUser?.lastName[0]

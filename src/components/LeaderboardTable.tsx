@@ -1,22 +1,8 @@
-import { DifficultyLevel } from '@prisma/client';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './ui/table';
-import TableActions from './TableActions';
-import { Category, User, UserResult } from '@/types/types';
-import { Avatar, AvatarFallback } from './ui/avatar';
-import { Crown } from 'lucide-react';
+import { UserResult } from '@/types/types';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import Image from 'next/image';
-import {
-  getAllResults,
-  getGroupedResults,
-} from '@/lib/queries/results/queries';
-import { getAllUsers, getUserById } from '@/lib/queries/users/queries';
+import { getAllResults } from '@/lib/queries/results/queries';
+import { getUserById } from '@/lib/queries/users/queries';
 
 // const results = [
 //   {
@@ -78,7 +64,11 @@ export default async function LeaderboardTable() {
         const user = await getUserById(userId); // Fetch user details
         if (user) {
           groupedResults[userId] = {
-            user: { firstName: user.firstName, lastName: user.lastName },
+            user: {
+              imageUrl: user.imageUrl,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            },
             points: 0,
           };
         }
@@ -90,7 +80,7 @@ export default async function LeaderboardTable() {
     return Object.values(groupedResults);
   };
 
-  // Call the function and log the result
+  // Call the function
   const results = await getGroupedResults();
   const sortedResults = results.sort((a, b) => b.points - a.points);
 
@@ -114,8 +104,9 @@ export default async function LeaderboardTable() {
                   />
                 </span>
                 <div className="flex flex-col items-center justify-center space-y-2">
-                  <Avatar className="size-16">
-                    <AvatarFallback className="bg-primary border-2 border-white text-white font-bold text-lg">
+                  <Avatar className="size-16 border-2 border-[#ff5858]">
+                    <AvatarImage src={firstThree[1].user.imageUrl} />
+                    <AvatarFallback className="bg-primary  text-white font-bold text-lg">
                       {firstThree[1].user.firstName[0]}
                       {firstThree[1].user.lastName[0]}
                     </AvatarFallback>
@@ -160,8 +151,9 @@ export default async function LeaderboardTable() {
                   />
                 </span>
                 <div className="flex flex-col items-center justify-center space-y-2">
-                  <Avatar className="size-20">
-                    <AvatarFallback className="bg-primary border-2 border-white text-white font-bold text-lg">
+                  <Avatar className="size-20 border-2 border-[#ffff]">
+                    <AvatarImage src={firstThree[0].user.imageUrl} />
+                    <AvatarFallback className="bg-primary  text-white font-bold text-lg">
                       {firstThree[0].user.firstName[0]}
                       {firstThree[0].user.lastName[0]}
                     </AvatarFallback>
@@ -206,8 +198,9 @@ export default async function LeaderboardTable() {
                   />
                 </span>
                 <div className="flex flex-col items-center justify-center space-y-2">
-                  <Avatar className="size-16">
-                    <AvatarFallback className="bg-primary border-2 border-white text-white font-bold text-lg">
+                  <Avatar className="size-16 border-2 border-[#ff5858]">
+                    <AvatarImage src={firstThree[2].user.imageUrl} />
+                    <AvatarFallback className="bg-primary  text-white font-bold text-lg">
                       {firstThree[2].user.firstName[0]}
                       {firstThree[2].user.lastName[0]}
                     </AvatarFallback>
@@ -255,7 +248,8 @@ export default async function LeaderboardTable() {
 
               {/* Avatar and Name */}
               <div className="flex items-center space-x-2">
-                <Avatar className="size-8">
+                <Avatar className="size-8 border-2 border-[#fff]">
+                  <AvatarImage src={result.user.imageUrl} />
                   <AvatarFallback className="bg-gradient-to-b from-primary to-[#7116bb] text-white font-bold text-sm">
                     {result?.user?.firstName ? result.user.firstName[0] : 'N/A'}
                     {result?.user?.lastName ? result.user.lastName[0] : 'N/A'}

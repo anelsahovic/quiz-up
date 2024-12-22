@@ -1,7 +1,11 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
-import { createUser } from '@/lib/actions/users/actions';
+import {
+  createUser,
+  deleteUserWH,
+  updateUserWH,
+} from '@/lib/actions/users/actions';
 import { User } from '@/types/types';
 
 export async function POST(req: Request) {
@@ -52,7 +56,8 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === 'user.created') {
-    const { id, email_addresses, first_name, last_name, username } = evt.data;
+    const { id, image_url, email_addresses, first_name, last_name, username } =
+      evt.data;
 
     if (!id || !email_addresses) {
       return new Response('Missing data', { status: 400 });
@@ -60,6 +65,7 @@ export async function POST(req: Request) {
 
     const user = {
       clerkUserId: id,
+      imageUrl: image_url,
       email: email_addresses[0].email_address,
       firstName: first_name as string,
       lastName: last_name as string,
@@ -68,5 +74,35 @@ export async function POST(req: Request) {
 
     await createUser(user);
   }
+  if (eventType === 'user.updated') {
+    const { id, image_url, email_addresses, first_name, last_name, username } =
+      evt.data;
+
+    if (!id || !email_addresses) {
+      return new Response('Missing data', { status: 400 });
+    }
+
+    const user = {
+      clerkUserId: id,
+      imageUrl: image_url,
+      email: email_addresses[0].email_address,
+      firstName: first_name as string,
+      lastName: last_name as string,
+      username: username as string,
+    };
+
+    await updateUserWH(user);
+  }
+
+  if (eventType === 'user.deleted') {
+    const { id } = evt.data;
+
+    if (!id) {
+      return new Response('Missing data', { status: 400 });
+    }
+
+    await deleteUserWH(id);
+  }
+
   return new Response('Webhook received', { status: 200 });
 }

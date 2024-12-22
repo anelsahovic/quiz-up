@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { deleteUser } from '@/lib/actions/users/actions';
@@ -87,6 +87,7 @@ export default async function ShowUser({ params }: Props) {
         <div>
           <div className="text-center sm:text-left flex flex-col items-center ">
             <Avatar className="w-20 h-20 text-primary border-2 border-gray-200 shadow-md">
+              <AvatarImage src={user?.imageUrl} />
               <AvatarFallback className="bg-primary text-white text-xl font-bold">
                 {`${user.firstName?.[0] || ''}${user.lastName?.[0] || ''}`}
               </AvatarFallback>
