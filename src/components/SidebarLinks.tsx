@@ -37,11 +37,6 @@ const infoLinks = [
     title: 'My Profile',
     id: 0,
   },
-  {
-    href: '/about',
-    title: 'About',
-    id: 1,
-  },
 ];
 
 type Props = {

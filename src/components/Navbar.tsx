@@ -13,6 +13,7 @@ type Props = {
 export default function Navbar({ isAdmin }: Props) {
   const pathname = usePathname();
   const shouldHide =
+    pathname === '/' ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/lobby') ||
     pathname.startsWith('/play');

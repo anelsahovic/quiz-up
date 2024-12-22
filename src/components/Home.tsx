@@ -30,7 +30,7 @@ export default async function Home() {
   }`;
   const name = `${clerkUser?.firstName ?? ''} ${clerkUser?.lastName ?? ''}`;
   return (
-    <div className="w-screen h-screen p-4 flex flex-col items-center ">
+    <div className="w-screen h-screen p-4 flex flex-col items-center">
       <div className="h-1/2 max-w-[800px] w-full flex flex-col items-center gap-4 sm:mt-[85px]">
         <div className="flex flex-col items-center justify-center w-full h-1/2 bg-gradient-to-t from-primary to-[#7116bb] text-white rounded-xl py-1 px-6 shadow-lg relative hover:scale-105 transition-all duration-300">
           {/* upper section */}

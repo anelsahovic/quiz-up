@@ -14,6 +14,7 @@ export default function BottomNav({ isAdmin }: Props) {
 
   const shouldHide =
     pathname.startsWith('/dashboard') ||
+    pathname === '/' ||
     pathname.startsWith('/lobby') ||
     pathname.startsWith('/play');
   return (
