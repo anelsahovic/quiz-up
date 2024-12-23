@@ -1,13 +1,11 @@
 'use client';
 
-import { CheckCircle, Hash, OctagonAlert, XCircle } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
-import { useActionState, useEffect, useState } from 'react';
-import { Button } from './ui/button';
+import { useEffect, useState } from 'react';
 import SubmitButton from './SubmitButton';
 import { Question, Result } from '@/types/types';
-import Loading from './Loading';
 import LoadingQuiz from './LoadingQuiz';
 import Image from 'next/image';
 import { parseWithZod } from '@conform-to/zod';
@@ -95,7 +93,7 @@ export default function QuizForm({ questions, category, userId }: Props) {
   // save data to database
   useEffect(() => {
     if (isQuizComplete && !savedResult) {
-      let totalPoints: number =
+      const totalPoints: number =
         questions[0].difficulty === 'EASY'
           ? correctAnswers * 1
           : questions[0].difficulty === 'MEDIUM'

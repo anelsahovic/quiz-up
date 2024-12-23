@@ -17,7 +17,6 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SheetTrigger } from './ui/sheet';
-import { User } from '@/types/types';
 
 const sidebarLinks = [
   {

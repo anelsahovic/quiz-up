@@ -2,9 +2,8 @@
 
 import prisma from '@/lib/db';
 import { userSchema } from '@/lib/zodSchemas';
-import { clerkUser, User } from '@/types/types';
+import { clerkUser } from '@/types/types';
 import { parseWithZod } from '@conform-to/zod';
-import { Role } from '@prisma/client';
 import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
 

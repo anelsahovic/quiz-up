@@ -1,11 +1,9 @@
-import { UserProfile } from '@clerk/nextjs';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { currentUser } from '@clerk/nextjs/server';
 import { getUserByClerkId } from '@/lib/queries/users/queries';
 import Link from 'next/link';
-import { buttonVariants } from './ui/button';
-import { Instagram, Linkedin, PencilIcon, Twitter } from 'lucide-react';
-import { getAllResults, getResultByUser } from '@/lib/queries/results/queries';
+import { PencilIcon } from 'lucide-react';
+import { getResultByUser } from '@/lib/queries/results/queries';
 
 export default async function MyProfile() {
   const clerkUser = await currentUser();

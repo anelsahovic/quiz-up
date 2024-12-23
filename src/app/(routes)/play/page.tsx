@@ -1,11 +1,8 @@
 import LoadingQuiz from '@/components/LoadingQuiz';
 import PlayQuiz from '@/components/PlayQuiz';
-import { getCategoryById } from '@/lib/queries/categories/queries';
-import { getQuizQuestions } from '@/lib/queries/questions/queries';
-import { User } from '@/types/types';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 type Props = {
   searchParams: Promise<{

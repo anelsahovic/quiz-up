@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -13,7 +12,6 @@ import { getUserByClerkId } from '@/lib/queries/users/queries';
 import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 export default async function Home() {
   const clerkUser = await currentUser();

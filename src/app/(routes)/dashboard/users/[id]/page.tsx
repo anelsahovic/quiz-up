@@ -1,4 +1,3 @@
-import { DELETE } from '@/app/app/api/delete-user/route';
 import SubmitButton from '@/components/SubmitButton';
 import {
   AlertDialog,
@@ -71,7 +70,6 @@ export default async function ShowUser({ params }: Props) {
                         'use server';
 
                         const userId = await getUserById(id);
-                        DELETE(userId?.clerkUserId as string);
                         deleteUser(id);
                         redirect(`/dashboard/users`);
                       }}

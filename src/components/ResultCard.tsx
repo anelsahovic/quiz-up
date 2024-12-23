@@ -1,10 +1,7 @@
 import { DifficultyLevel } from '@prisma/client';
 import { Button, buttonVariants } from './ui/button';
 import Image from 'next/image';
-import { Result } from '@/types/types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { saveResult } from '@/lib/actions/results/actions';
 
 type Props = {
   correctAnswers: number;
@@ -23,7 +20,7 @@ export default function ResultCard({
 }: Props) {
   const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
 
-  let earnedPoints: number =
+  const earnedPoints: number =
     difficulty === 'EASY'
       ? correctAnswers * 1
       : difficulty === 'MEDIUM'
@@ -32,7 +29,7 @@ export default function ResultCard({
       ? correctAnswers * 3
       : 0;
 
-  let maxPoints: number =
+  const maxPoints: number =
     difficulty === 'EASY'
       ? totalQuestions * 1
       : difficulty === 'MEDIUM'

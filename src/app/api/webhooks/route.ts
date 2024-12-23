@@ -6,7 +6,6 @@ import {
   deleteUserWH,
   updateUserWH,
 } from '@/lib/actions/users/actions';
-import { User } from '@/types/types';
 
 export async function POST(req: Request) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET;

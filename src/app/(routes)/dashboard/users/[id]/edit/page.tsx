@@ -1,9 +1,8 @@
 import Loading from '@/components/Loading';
 import UserForm from '@/components/UserForm';
 import { getUserById } from '@/lib/queries/users/queries';
-import { User } from '@/types/types';
 import { notFound } from 'next/navigation';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -1,15 +1,5 @@
 import prisma from '@/lib/db';
-import { User } from '@/types/types';
-import {
-  subMonths,
-  startOfDay,
-  endOfDay,
-  eachDayOfInterval,
-  format,
-  startOfMonth,
-  endOfMonth,
-  eachMonthOfInterval,
-} from 'date-fns';
+import { subMonths, format, startOfMonth, eachMonthOfInterval } from 'date-fns';
 
 export const getAllUsers = async () => {
   try {

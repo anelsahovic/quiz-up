@@ -38,7 +38,7 @@ export default function UserForm({
   let defaultUsernameValue: string = '';
   let defaultEmailValue: string = '';
   let defaultRoleValue: string = '';
-  let selectedAction = updateUser;
+  const selectedAction = updateUser;
 
   const [lastResult, action] = useActionState(selectedAction, undefined);
   const [form, fields] = useForm({

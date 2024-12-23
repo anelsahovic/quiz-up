@@ -5,7 +5,7 @@ import React, { Suspense } from 'react';
 export default function UsersCreateRoute() {
   return (
     <Suspense fallback={<Loading />}>
-      <UserForm formTitle="Create New User" />
+      <UserForm actionType="create" formTitle="Create New User" />
     </Suspense>
   );
 }

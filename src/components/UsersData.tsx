@@ -1,6 +1,5 @@
 import { getAllUsers } from '@/lib/queries/users/queries';
 import DataTable from './DataTable';
-import { User } from '@/types/types';
 
 export default async function UsersData() {
   const users = await getAllUsers();

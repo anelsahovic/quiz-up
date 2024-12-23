@@ -14,8 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { checkIsAdmin } from '@/lib/helperFunctions';
-import { getUserByClerkId, getUserById } from '@/lib/queries/users/queries';
+import { getUserByClerkId } from '@/lib/queries/users/queries';
 import { SignOutButton } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
