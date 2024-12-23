@@ -24,7 +24,7 @@ export default async function Lobby() {
             height={80}
             className="sm:size-32 md:size-48"
           />
-          <div className="text-5xl sm:text-7xl md:text-8xl jersey_10_8cf6801b-module__g70_MG__className text-white">
+          <div className="text-5xl sm:text-7xl md:text-8xl font-jersey10 text-white">
             Quiz Up
           </div>
         </div>

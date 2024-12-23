@@ -43,9 +43,7 @@ export function DashboardSidebar() {
                 width={45}
                 height={45}
               />
-              <h1 className="jersey_10_8cf6801b-module__g70_MG__className text-4xl">
-                Quiz Up
-              </h1>
+              <h1 className="font-jersey10 text-4xl">Quiz Up</h1>
             </SidebarMenuButton>
           </Link>
         </SidebarMenuItem>

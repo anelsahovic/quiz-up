@@ -45,10 +45,8 @@ export default function Home() {
               Level Up Your Knowledge with{' '}
             </h1>
             <div className="flex items-center justify-center sm:justify-start space-x-1">
-              <h2 className="text-[#FFD700] jersey_10_8cf6801b-module__g70_MG__className text-8xl ">
-                Quiz
-              </h2>
-              <span className="text-[#FFD700] jersey_10_8cf6801b-module__g70_MG__className text-8xl animate-bounce duration-1000">
+              <h2 className="text-[#FFD700] font-jersey10 text-8xl ">Quiz</h2>
+              <span className="text-[#FFD700] font-jersey10 text-8xl animate-bounce duration-1000">
                 Up
               </span>
             </div>
@@ -83,9 +81,7 @@ export default function Home() {
             <Card>
               <CardContent className="flex flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#b24c30] to-[#d11313]">
                 <h2 className="text-xl font-bold">Hard Mode</h2>
-                <h3 className="font-bold text-8xl jersey_10_8cf6801b-module__g70_MG__className">
-                  3X
-                </h3>
+                <h3 className="font-bold text-8xl font-jersey10">3X</h3>
                 <p className="text-sm text-center">
                   Conquer hard mode and reap 3x points for every correct answer.
                 </p>
@@ -97,9 +93,7 @@ export default function Home() {
             <Card>
               <CardContent className="flex flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#d6db3d] to-[#f9ac38]">
                 <h2 className="text-xl font-bold">Medium Mode</h2>
-                <h3 className="font-bold text-8xl jersey_10_8cf6801b-module__g70_MG__className">
-                  2X
-                </h3>
+                <h3 className="font-bold text-8xl font-jersey10">2X</h3>
                 <p className="text-sm text-center">
                   Challenge yourself with medium difficulty and earn 2x points.
                 </p>
@@ -111,9 +105,7 @@ export default function Home() {
             <Card>
               <CardContent className="flex flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#43e97b] to-[#38f9d7]">
                 <h2 className="text-xl font-bold">Easy Mode</h2>
-                <h3 className="font-bold text-8xl jersey_10_8cf6801b-module__g70_MG__className">
-                  1X
-                </h3>
+                <h3 className="font-bold text-8xl font-jersey10">1X</h3>
                 <p className="text-sm text-center">
                   Start with easy mode and earn 1x points for every correct
                   answer.

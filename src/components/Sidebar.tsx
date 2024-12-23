@@ -32,7 +32,7 @@ export default function Sidebar({ isAdmin }: Props) {
                 height={70}
                 className=""
               />
-              <SheetTitle className="text-5xl jersey_10_8cf6801b-module__g70_MG__className text-white">
+              <SheetTitle className="text-5xl font-jersey10 text-white">
                 Quiz Up
               </SheetTitle>
             </div>

@@ -163,9 +163,7 @@ export default async function Home() {
                     className={`flex h-full flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#43e97b] to-[#38f9d7]`}
                   >
                     <h2 className="text-xl font-bold">Easy Mode</h2>
-                    <h3 className="jersey_10_8cf6801b-module__g70_MG__className font-bold text-8xl">
-                      1X
-                    </h3>
+                    <h3 className="font-jersey10 font-bold text-8xl">1X</h3>
                     <p className="text-sm text-center">
                       Challenge yourself and earn 1x points for every correct
                       answer.
@@ -188,9 +186,7 @@ export default async function Home() {
                     className={`flex flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#d6db3d] to-[#f9ac38]`}
                   >
                     <h2 className="text-xl font-bold">Medium Mode</h2>
-                    <h3 className="jersey_10_8cf6801b-module__g70_MG__className font-bold text-8xl">
-                      2X
-                    </h3>
+                    <h3 className="font-jersey10 font-bold text-8xl">2X</h3>
                     <p className="text-sm text-center">
                       Challenge yourself with medium difficulty and earn 2x
                       points.
@@ -213,9 +209,7 @@ export default async function Home() {
                     className={`flex flex-col items-center justify-around p-5 rounded-lg text-white shadow-lg bg-gradient-to-br from-[#b24c30] to-[#d11313]`}
                   >
                     <h2 className="text-xl font-bold">Hard Mode</h2>
-                    <h3 className="jersey_10_8cf6801b-module__g70_MG__className font-bold text-8xl">
-                      3X
-                    </h3>
+                    <h3 className="font-jersey10 font-bold text-8xl">3X</h3>
                     <p className="text-sm text-center">
                       Conquer hard mode and reap 3x points for every correct
                       answer.

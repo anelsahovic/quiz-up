@@ -27,9 +27,7 @@ export default function Navbar({ isAdmin }: Props) {
         <div className="w-1/3">
           <Link href="/home" className="flex items-center gap-2 justify-center">
             <Image src="/quiz_up_logo.png" alt="logo" width={45} height={45} />
-            <h1 className="jersey_10_8cf6801b-module__g70_MG__className text-4xl">
-              Quiz Up
-            </h1>
+            <h1 className="font-jersey10 text-4xl">Quiz Up</h1>
           </Link>
         </div>
         <div className=" ">
