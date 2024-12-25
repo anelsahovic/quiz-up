@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { User } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -37,9 +38,11 @@ export default function SignInRoute() {
                 className="rounded-md flex items-center justify-center border border-slate-300 py-2 px-4 text-center text-sm  shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-primary hover:border-primary focus:text-white focus:bg-slate-800 focus:border-slate-800 focus:scale-95 active:border-slate-800 active:text-white active:bg-slate-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none transition-all duration-300 w-full"
                 type="submit"
               >
-                <img
+                <Image
                   src="https://docs.material-tailwind.com/icons/google.svg"
                   alt="metamask"
+                  width={20}
+                  height={20}
                   className="h-5 w-5 mr-2"
                 />
                 Continue with Google
@@ -71,8 +74,8 @@ export default function SignInRoute() {
                 />
               </div>
               {/* Sign-up Link */}
-              <div className="flex items-center space-x-1 text-sm">
-                <p>Don't have an account?</p>
+              <div className="flex items-center justify-center space-x-1 text-sm">
+                <p>Don&apos;t have an account?</p>
                 <Link className="text-primary hover:underline" href="/sign-up">
                   Sign up
                 </Link>
