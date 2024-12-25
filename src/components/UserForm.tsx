@@ -14,11 +14,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
-import { User } from '@/types/types';
-import { updateUser } from '@/lib/actions/users/actions';
+import { User } from '../../types/types';
+import { createUser, updateUser } from '@/lib/actions/users/actions';
 import { useForm } from '@conform-to/react';
 import { userSchema } from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 type Props = {
   data?: User;
@@ -33,12 +34,17 @@ export default function UserForm({
   data,
   actionType,
 }: Props) {
-  let defaultFirstNameValue: string = '';
-  let defaultLastNameValue: string = '';
-  let defaultUsernameValue: string = '';
+  let defaultNameValue: string = '';
+  let defaultImageValue: string = '';
   let defaultEmailValue: string = '';
   let defaultRoleValue: string = '';
-  const selectedAction = updateUser;
+  let selectedAction = createUser;
+
+  if (actionType === 'create') {
+    selectedAction = createUser;
+  } else if (actionType === 'update') {
+    selectedAction = updateUser;
+  }
 
   const [lastResult, action] = useActionState(selectedAction, undefined);
   const [form, fields] = useForm({
@@ -55,21 +61,19 @@ export default function UserForm({
   });
 
   if (data) {
-    defaultFirstNameValue = data.firstName;
-    defaultLastNameValue = data.lastName;
-    defaultUsernameValue = data.username;
+    defaultNameValue = data.name as string;
+    defaultImageValue = data.image as string;
     defaultEmailValue = data.email;
     defaultRoleValue = data.role;
   } else {
-    defaultFirstNameValue = fields.firstName.initialValue as string;
-    defaultLastNameValue = fields.lastName.initialValue as string;
-    defaultUsernameValue = fields.username.initialValue as string;
+    defaultNameValue = fields.name.initialValue as string;
+    defaultImageValue = fields.image.initialValue as string;
     defaultEmailValue = fields.email.initialValue as string;
     defaultRoleValue = fields.role.initialValue as string;
   }
   return (
     <Card className="max-w-4xl mx-auto py-6 px-8 bg-white shadow-lg rounded-lg">
-      <CardHeader className="flex flex-col items-center border-b pb-4">
+      <CardHeader className="flex flex-col items-center border-b">
         <div className="w-full flex justify-between items-center">
           <Link href="/dashboard/users">
             <SquareArrowLeft
@@ -90,47 +94,39 @@ export default function UserForm({
           onSubmit={form.onSubmit}
           action={action}
         >
-          <input type="hidden" name="userId" id="questionId" value={data?.id} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* First Name */}
-            <div>
-              <Label htmlFor="first_name">First Name</Label>
+          <input type="hidden" name="userId" id="userId" value={data?.id} />
+          <div className="flex flex-col w-full gap-1 justify-center items-center pb-4 border-b">
+            <Avatar className="size-24 border-2 border-primary shadow-md">
+              {data?.image ? (
+                <AvatarImage src={data?.image} />
+              ) : (
+                <AvatarFallback className="bg-slate-700 text-white font-bold">
+                  N/A
+                </AvatarFallback>
+              )}
+            </Avatar>
+            <div className="w-full text-center">
+              <Label htmlFor="image">Image Url</Label>
               <Input
-                name={fields.firstName.name}
-                key={fields.firstName.key}
-                defaultValue={defaultFirstNameValue}
-                placeholder="John"
-                readOnly={actionType === 'update'}
+                name={fields.image.name}
+                key={fields.image.key}
+                defaultValue={defaultImageValue}
+                placeholder="https://imageurl.com"
               />
-              <p className="text-sm text-rose-500">{fields.firstName.errors}</p>
-            </div>
-
-            {/* Last Name */}
-            <div>
-              <Label htmlFor="last_name">Last Name</Label>
-              <Input
-                name={fields.lastName.name}
-                key={fields.lastName.key}
-                defaultValue={defaultLastNameValue}
-                placeholder="Doe"
-                readOnly={actionType === 'update'}
-              />
-              <p className="text-sm text-rose-500">{fields.lastName.errors}</p>
+              <p className="text-sm text-rose-500">{fields.image.errors}</p>
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Username */}
+            {/*  Name */}
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="name">Name</Label>
               <Input
-                name={fields.username.name}
-                key={fields.username.key}
-                defaultValue={defaultUsernameValue}
-                placeholder="john_doe"
-                readOnly={actionType === 'update'}
+                name={fields.name.name}
+                key={fields.name.key}
+                defaultValue={defaultNameValue}
+                placeholder="John"
               />
-              <p className="text-sm text-rose-500">{fields.username.errors}</p>
+              <p className="text-sm text-rose-500">{fields.name.errors}</p>
             </div>
 
             {/* Role */}
@@ -162,7 +158,6 @@ export default function UserForm({
               type="email"
               defaultValue={defaultEmailValue}
               placeholder="john.doe@example.com"
-              readOnly={actionType === 'update'}
             />
             <p className="text-sm text-rose-500">{fields.email.errors}</p>
           </div>

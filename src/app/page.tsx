@@ -24,7 +24,7 @@ export default function Home() {
             height={70}
             className="hover:opacity-90 transition-opacity"
           />
-          <h1 className="hidden sm:flex text-white text-3xl font-bold">
+          <h1 className="hidden sm:flex text-white text-4xl font-bold font-jersey10">
             QuizUp
           </h1>
         </div>
@@ -140,7 +140,7 @@ export default function Home() {
       </div>
 
       <div>
-        <div className="bg-gray-100 w-full py-10 px-4 sm:px-8 lg:px-16">
+        <div className="bg-white w-full py-10 px-4 sm:px-8 lg:px-16">
           {/* Header */}
           <div className="text-center mb-8">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-800">
@@ -204,7 +204,6 @@ export default function Home() {
                     47
                   </td>
                 </tr>
-                {/* Add more rows as needed */}
               </tbody>
             </table>
           </div>

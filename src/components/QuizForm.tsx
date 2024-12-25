@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
 import { useEffect, useState } from 'react';
 import SubmitButton from './SubmitButton';
-import { Question, Result } from '@/types/types';
+import { Question, Result } from '../../types/types';
 import LoadingQuiz from './LoadingQuiz';
 import Image from 'next/image';
 import { parseWithZod } from '@conform-to/zod';

@@ -16,6 +16,7 @@ import { deleteQuestion } from '@/lib/actions/questions/actions';
 import { getCategoryById } from '@/lib/queries/categories/queries';
 import { getQuestionById } from '@/lib/queries/questions/queries';
 import { Pencil, SquareArrowLeft, Trash } from 'lucide-react';
+import getSession from '@/lib/getSession';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
@@ -24,6 +25,16 @@ type Props = {
 };
 
 export default async function ShowQuestion({ params }: Props) {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+  // Redirect unauthorized users
+  if (user?.role !== 'ADMIN') {
+    return redirect('/home');
+  }
+
   const { id } = await params;
   const question = await getQuestionById(id);
   const category = await getCategoryById(question?.categoryId as string);

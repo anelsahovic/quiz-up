@@ -32,7 +32,7 @@ import Link from 'next/link';
 
 export function DashboardSidebar() {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="list-none">
       <SidebarHeader className="py-5 px-0 items-start">
         <SidebarMenuItem>
           <Link href="/home">

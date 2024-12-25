@@ -5,16 +5,15 @@ import Link from 'next/link';
 import Sidebar from './Sidebar';
 import { Play } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { User } from 'next-auth';
 
-type Props = {
-  isAdmin: boolean;
-};
-
-export default function Navbar({ isAdmin }: Props) {
+export default function Navbar() {
   const pathname = usePathname();
   const shouldHide =
     pathname === '/' ||
     pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/sign-in') ||
+    pathname.startsWith('/sign-up') ||
     pathname.startsWith('/lobby') ||
     pathname.startsWith('/play');
   return (
@@ -39,7 +38,7 @@ export default function Navbar({ isAdmin }: Props) {
           </Link>
         </div>
         <div className="w-1/3 flex justify-center items-center">
-          <Sidebar isAdmin={isAdmin} />
+          <Sidebar />
         </div>
       </div>
     </div>

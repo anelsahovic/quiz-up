@@ -8,11 +8,22 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import getSession from '@/lib/getSession';
 import { PlusSquare } from 'lucide-react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React, { Suspense } from 'react';
 
-export default function CategoriesRoute() {
+export default async function CategoriesRoute() {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+  // Redirect unauthorized users
+  if (user?.role !== 'ADMIN') {
+    return redirect('/home');
+  }
   return (
     <Card className="w-full h-full">
       <CardHeader>

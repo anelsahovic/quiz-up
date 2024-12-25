@@ -6,7 +6,7 @@ import SubmitButton from './SubmitButton';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import Link from 'next/link';
-import { Category } from '@/types/types';
+import { Category } from '../../types/types';
 import { useActionState } from 'react';
 import {
   createCategory,

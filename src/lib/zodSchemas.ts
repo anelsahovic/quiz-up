@@ -16,9 +16,8 @@ export const categorySchema = z.object({
 });
 
 export const userSchema = z.object({
-  firstName: z.string().min(2).max(25),
-  lastName: z.string().min(2).max(25),
-  username: z.string().min(2).max(25),
+  name: z.string().min(2).max(25),
+  image: z.string(),
   email: z.string(),
   role: z.enum(['ADMIN', 'PLAYER']),
 });

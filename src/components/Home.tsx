@@ -1,3 +1,4 @@
+import { auth } from '../auth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -7,15 +8,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import getSession from '@/lib/getSession';
 import { getResultByUser } from '@/lib/queries/results/queries';
-import { getUserByClerkId } from '@/lib/queries/users/queries';
-import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  const clerkUser = await currentUser();
-  const user = await getUserByClerkId(clerkUser?.id as string);
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
 
   const results = await getResultByUser(user?.id as string);
   let points = 0;
@@ -23,10 +28,7 @@ export default async function Home() {
     points = results.reduce((sum, result) => sum + result.points, 0);
   }
 
-  const initials = `${clerkUser?.firstName?.[0] ?? ''}${
-    clerkUser?.lastName?.[0] ?? ''
-  }`;
-  const name = `${clerkUser?.firstName ?? ''} ${clerkUser?.lastName ?? ''}`;
+  const initials = user.name ? user.name[0] : 'N/A';
   return (
     <div className="w-screen h-screen p-4 flex flex-col items-center">
       <div className="h-1/2 max-w-[800px] w-full flex flex-col items-center gap-4 sm:mt-[85px]">
@@ -36,13 +38,13 @@ export default async function Home() {
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Avatar
                 className={`size-12 sm:size-14 border-2  ${
-                  clerkUser?.hasImage
+                  user.image
                     ? 'bg-gradient-to-r from-[#ff5858] to-[#f09819] border-transparent bg-clip-border'
                     : ''
                 } `}
               >
-                {clerkUser?.hasImage ? (
-                  <AvatarImage src={user?.imageUrl} />
+                {user.image ? (
+                  <AvatarImage src={user?.image as string} />
                 ) : (
                   <AvatarFallback className=" bg-gradient-to-r from-[#ff5858] to-[#f09819] text-white font-bold  shadow-lg">
                     {initials}
@@ -55,7 +57,7 @@ export default async function Home() {
                 <h1 className="text-sm sm:text-base font-medium">
                   Welcome back,
                 </h1>
-                <p className="text-base sm:text-lg font-bold">{name}</p>
+                <p className="text-base sm:text-lg font-bold">{user.name}</p>
               </div>
             </div>
 

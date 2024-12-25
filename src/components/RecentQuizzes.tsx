@@ -9,7 +9,7 @@ export default async function RecentQuizzes() {
   const data = await Promise.all(
     results.map(async (result) => {
       return {
-        name: await getUserName(result.userId),
+        user: await getUserName(result.userId),
         correctAnswers: result.correctlyAnswered,
         questionsPlayed: result.numberOfQuestions,
       };

@@ -22,7 +22,6 @@ import SubmitButton from './SubmitButton';
 import { deleteQuestion } from '@/lib/actions/questions/actions';
 import { deleteCategory } from '@/lib/actions/categories/actions';
 import { redirect } from 'next/navigation';
-import { getUserByClerkId, getUserById } from '@/lib/queries/users/queries';
 import { deleteUser } from '@/lib/actions/users/actions';
 
 type Props = {
@@ -73,11 +72,11 @@ export default function TableActions({ type, id }: Props) {
                     action={async () => {
                       'use server';
                       if (type === 'questions') {
-                        deleteQuestion(id);
+                        await deleteQuestion(id);
                       } else if (type === 'categories') {
-                        deleteCategory(id);
+                        await deleteCategory(id);
                       } else if (type === 'users') {
-                        deleteUser(id);
+                        await deleteUser(id);
                       }
                       redirect(`/dashboard/${type}`);
                     }}

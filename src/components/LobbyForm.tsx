@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from './ui/select';
 import { CirclePlay, OctagonAlert } from 'lucide-react';
-import { Category } from '@/types/types';
+import { Category } from '../../types/types';
 import { useForm } from '@conform-to/react';
 import { lobbySchema } from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';

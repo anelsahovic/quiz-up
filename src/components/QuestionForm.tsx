@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from './ui/select';
 import SubmitButton from './SubmitButton';
-import { Category, Question } from '@/types/types';
+import { Category, Question } from '../../types/types';
 import { useActionState } from 'react';
 import {
   createQuestion,

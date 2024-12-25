@@ -64,5 +64,5 @@ export async function deleteQuestion(questionId: string) {
     where: { id: questionId },
   });
 
-  redirect('/dashboard/');
+  redirect('/dashboard/questions');
 }

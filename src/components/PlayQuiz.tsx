@@ -17,7 +17,9 @@ import {
   AlertDialogTrigger,
 } from './ui/alert-dialog';
 import LoadingQuiz from './LoadingQuiz';
-import { getUserByClerkIdWithRetry } from '@/lib/queries/users/queries';
+import { auth } from '../auth';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 type Props = {
   searchParams: Promise<{
@@ -25,11 +27,15 @@ type Props = {
     questions: string;
     difficulty: string;
   }>;
-  clerkUserId: string;
+  userId: string;
 };
 
-export default async function PlayQuiz({ searchParams, clerkUserId }: Props) {
-  const user = await getUserByClerkIdWithRetry(clerkUserId);
+export default async function PlayQuiz({ searchParams, userId }: Props) {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
 
   const { category, questions, difficulty } = await searchParams;
   const fetchedCategory = await getCategoryById(category);
@@ -39,9 +45,6 @@ export default async function PlayQuiz({ searchParams, clerkUserId }: Props) {
     Number(questions)
   );
 
-  if (!user) {
-    return <LoadingQuiz text="Fetching user data..." />;
-  }
   if (!fetchedCategory) {
     return <LoadingQuiz text="Loading category..." />;
   }

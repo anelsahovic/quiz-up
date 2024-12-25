@@ -1,12 +1,6 @@
 'use client';
 
 import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from '@clerk/nextjs';
-import {
   ChevronLeft,
   ChevronRight,
   LogIn,
@@ -17,6 +11,8 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SheetTrigger } from './ui/sheet';
+import { User } from 'next-auth';
+import { signOut, useSession } from 'next-auth/react';
 
 const sidebarLinks = [
   {
@@ -38,16 +34,14 @@ const infoLinks = [
   },
 ];
 
-type Props = {
-  isAdmin: boolean;
-};
-
-export default function SidebarLinks({ isAdmin }: Props) {
+export default function SidebarLinks() {
   const pathname = usePathname();
+  const session = useSession();
+  const user = session.data?.user;
   return (
     <div className="flex flex-col items-center justify-center h-full gap-5">
       <SheetTrigger asChild>
-        {isAdmin && (
+        {user?.role === 'ADMIN' && (
           <Link
             className="flex gap-1 uppercase font-bold text-white p-1  border-slate-800 hover:scale-105 transition-all duration-300"
             href="/dashboard"
@@ -90,20 +84,25 @@ export default function SidebarLinks({ isAdmin }: Props) {
         ))}
       </div>
       <div className="flex flex-col items-center mt-5">
-        <SignedIn>
-          <SignOutButton>
-            <button className="py-1 px-2 text-white flex gap-1 ring-1 ring-white">
-              <LogOut /> Sign Out
-            </button>
-          </SignOutButton>
-        </SignedIn>
-        <SignedOut>
-          <SignInButton>
-            <button className="py-1 px-2 text-white flex gap-1 ring-1 ring-white">
-              <LogIn /> Sign in
-            </button>
-          </SignInButton>
-        </SignedOut>
+        {user && (
+          <button
+            className="py-1 px-2 text-white flex gap-1 ring-1 ring-white"
+            onClick={() => {
+              signOut({ callbackUrl: '/' });
+            }}
+          >
+            <LogOut /> Sign Out
+          </button>
+        )}
+
+        {!user && session.status !== 'loading' && (
+          <Link
+            className="py-1 px-2 text-white flex gap-1 ring-1 ring-white"
+            href="/sign-in"
+          >
+            <LogOut /> Sign In
+          </Link>
+        )}
       </div>
     </div>
   );

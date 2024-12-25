@@ -1,13 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { currentUser } from '@clerk/nextjs/server';
-import { getUserByClerkId } from '@/lib/queries/users/queries';
 import Link from 'next/link';
 import { PencilIcon } from 'lucide-react';
 import { getResultByUser } from '@/lib/queries/results/queries';
+import { auth } from '../auth';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export default async function MyProfile() {
-  const clerkUser = await currentUser();
-  const user = await getUserByClerkId(clerkUser?.id as string);
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+
   const results = await getResultByUser(user?.id as string);
 
   let points = 0;
@@ -30,9 +35,9 @@ export default async function MyProfile() {
           <div className="relative">
             <div className="size-24 rounded-full bg-gradient-to-tr from-primary to-[#7116bb] p-1 shadow-lg">
               <Avatar className="w-full h-full text-primary border-4 border-white">
-                <AvatarImage src={user?.imageUrl} />
+                <AvatarImage src={user?.image as string} />
                 <AvatarFallback className="bg-primary text-white text-2xl font-bold">
-                  {`${user?.firstName?.[0] || ''}${user?.lastName?.[0] || ''}`}
+                  {user.name && user.name[0]}
                 </AvatarFallback>
               </Avatar>
             </div>
@@ -47,10 +52,7 @@ export default async function MyProfile() {
 
           {/* Name and Username */}
           <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl font-bold text-gray-800">
-              {user?.firstName} {user?.lastName}
-            </h3>
-            <p className="text-sm text-primary">@{user?.username}</p>
+            <h3 className="text-2xl font-bold text-gray-800">{user?.name}</h3>
           </div>
         </div>
 
@@ -76,10 +78,10 @@ export default async function MyProfile() {
           {[
             {
               label: 'Name',
-              value: `${user?.firstName || ''} ${user?.lastName || ''}`,
+              value: user.name,
             },
             { label: 'Email', value: user?.email || 'N/A' },
-            { label: 'Username', value: user?.username || 'N/A' },
+            { label: 'Id', value: user?.id || 'N/A' },
           ].map((info, index) => (
             <div
               key={index}

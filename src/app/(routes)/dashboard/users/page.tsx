@@ -9,9 +9,21 @@ import {
 } from '@/components/ui/card';
 import UsersData from '@/components/UsersData';
 import { PlusSquare } from 'lucide-react';
+import getSession from '@/lib/getSession';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+import Link from 'next/link';
 
-export default function UsersRoute() {
+export default async function UsersRoute() {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+  // Redirect unauthorized users
+  if (user?.role !== 'ADMIN') {
+    return redirect('/home');
+  }
   return (
     <Card className="w-full h-full">
       <CardHeader>
@@ -21,11 +33,12 @@ export default function UsersRoute() {
             <CardDescription>Manage all the users</CardDescription>
           </div>
           <div>
-            <span
-              className={`${buttonVariants()} opacity-50 hover:bg-primary cursor-not-allowed`}
+            <Link
+              href="/dashboard/users/create"
+              className={`${buttonVariants()} `}
             >
               New <PlusSquare />
-            </span>
+            </Link>
           </div>
         </div>
       </CardHeader>

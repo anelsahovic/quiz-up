@@ -1,6 +1,7 @@
+import { auth } from '../../../auth';
 import LoadingQuiz from '@/components/LoadingQuiz';
 import PlayQuiz from '@/components/PlayQuiz';
-import { currentUser } from '@clerk/nextjs/server';
+import getSession from '@/lib/getSession';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
@@ -13,13 +14,15 @@ type Props = {
 };
 
 export default async function Play({ searchParams }: Props) {
-  const clerkUser = await currentUser();
-  if (clerkUser === null) {
-    return redirect('/');
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
   }
+
   return (
     <Suspense fallback={<LoadingQuiz text="Starting quiz..." />}>
-      <PlayQuiz clerkUserId={clerkUser.id} searchParams={searchParams} />
+      <PlayQuiz userId={user.id as string} searchParams={searchParams} />
     </Suspense>
   );
 }

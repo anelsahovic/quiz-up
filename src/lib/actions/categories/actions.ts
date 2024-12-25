@@ -50,4 +50,6 @@ export async function deleteCategory(categoryId: string) {
       id: categoryId,
     },
   });
+
+  redirect('/dashboard/categories');
 }

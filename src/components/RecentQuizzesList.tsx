@@ -2,7 +2,9 @@ import React from 'react';
 
 type Props = {
   data: {
-    name: { firstName: string; lastName: string } | null;
+    user: {
+      name: string | null;
+    } | null;
     correctAnswers: number;
     questionsPlayed: number;
   }[];
@@ -19,8 +21,7 @@ export default function RecentQuizzesList({ data }: Props) {
           >
             {/* Quiz Name */}
             <div className="flex items-center gap-1 text-base font-semibold text-gray-800">
-              <p>{quizPlayed.name?.firstName}</p>
-              <p>{quizPlayed.name?.lastName}</p>
+              <p>{quizPlayed.user?.name}</p>
             </div>
 
             {/* Answers & Total Questions */}

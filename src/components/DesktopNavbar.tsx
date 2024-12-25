@@ -1,15 +1,20 @@
-import { getUserByClerkId } from '@/lib/queries/users/queries';
-import { currentUser } from '@clerk/nextjs/server';
 import Navbar from './Navbar';
+import { auth } from '../auth';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export default async function DesktopNavbar() {
-  const clerkUser = await currentUser();
+  const session = await getSession();
+  const user = session?.user;
+  // if (!user) {
+  //   redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  // }
+
   let isAdmin = false;
-  const user = await getUserByClerkId(clerkUser?.id as string);
 
   if (user?.role === 'ADMIN') {
     isAdmin = true;
   }
 
-  return <Navbar isAdmin={isAdmin} />;
+  return <Navbar />;
 }

@@ -1,7 +1,7 @@
 'use server';
 
 import prisma from '@/lib/db';
-import { Result } from '@/types/types';
+import { Result } from '../../../../types/types';
 
 export const saveResult = async (result: Result) => {
   try {

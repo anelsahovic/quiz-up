@@ -6,10 +6,7 @@ export default async function UsersData() {
   const formattedUsers = users.map((user) => {
     return {
       id: user.id,
-      clerk_User_Id: user.clerkUserId,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      username: user.username,
+      name: user.name,
       email: user.email,
       role: user.role,
       created_At: new Date(user.createdAt).toLocaleDateString(),

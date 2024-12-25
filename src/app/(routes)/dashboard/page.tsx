@@ -4,8 +4,20 @@ import TotalQuizzes from '@/components/TotalQuizzes';
 import TotalPlayers from '@/components/TotalPlayers';
 import TotalQuestions from '@/components/TotalQuestions';
 import { Suspense } from 'react';
+import { auth } from '../../../auth';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+  // Redirect unauthorized users
+  if (user?.role !== 'ADMIN') {
+    return redirect('/home');
+  }
   return (
     <div className="flex flex-col w-full h-full gap-4">
       <div className="shadow-md border border-slate-200 rounded p-2  md:h-1/2">

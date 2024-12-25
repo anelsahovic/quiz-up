@@ -1,4 +1,4 @@
-import { UserResult } from '@/types/types';
+import { UserResult } from '../../types/types';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import Image from 'next/image';
 import { getAllResults } from '@/lib/queries/results/queries';
@@ -65,9 +65,8 @@ export default async function LeaderboardTable() {
         if (user) {
           groupedResults[userId] = {
             user: {
-              imageUrl: user.imageUrl,
-              firstName: user.firstName,
-              lastName: user.lastName,
+              imageUrl: user.image as string,
+              name: user.name as string,
             },
             points: 0,
           };
@@ -107,14 +106,12 @@ export default async function LeaderboardTable() {
                   <Avatar className="size-16 border-2 border-[#ff5858]">
                     <AvatarImage src={firstThree[1].user.imageUrl} />
                     <AvatarFallback className="bg-primary  text-white font-bold text-lg">
-                      {firstThree[1].user.firstName[0]}
-                      {firstThree[1].user.lastName[0]}
+                      {firstThree[1].user.name[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-center justify-center -space-y-1">
                     <h3 className="font-semibold text-white text-lg">
-                      {firstThree[1].user.firstName}{' '}
-                      {firstThree[1].user.lastName}
+                      {firstThree[1].user.name}
                     </h3>
                     <p className="text-amber-600 font-semibold text-sm m-0 p-0">
                       {firstThree[1].points}
@@ -154,14 +151,12 @@ export default async function LeaderboardTable() {
                   <Avatar className="size-20 border-2 border-[#ffff]">
                     <AvatarImage src={firstThree[0].user.imageUrl} />
                     <AvatarFallback className="bg-primary  text-white font-bold text-lg">
-                      {firstThree[0].user.firstName[0]}
-                      {firstThree[0].user.lastName[0]}
+                      {firstThree[0].user.name[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-center justify-center -space-y-1">
                     <h3 className="font-semibold text-white text-lg">
-                      {firstThree[0].user.firstName}{' '}
-                      {firstThree[0].user.lastName}
+                      {firstThree[0].user.name}
                     </h3>
                     <p className="text-yellow-500 font-semibold text-sm m-0 p-0">
                       {firstThree[0].points}
@@ -201,14 +196,12 @@ export default async function LeaderboardTable() {
                   <Avatar className="size-16 border-2 border-[#ff5858]">
                     <AvatarImage src={firstThree[2].user.imageUrl} />
                     <AvatarFallback className="bg-primary  text-white font-bold text-lg">
-                      {firstThree[2].user.firstName[0]}
-                      {firstThree[2].user.lastName[0]}
+                      {firstThree[2].user.name[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-center justify-center -space-y-1">
                     <h3 className="font-semibold text-white text-lg">
-                      {firstThree[2].user.firstName}{' '}
-                      {firstThree[2].user.lastName}
+                      {firstThree[2].user.name}
                     </h3>
                     <p className="text-gray-200 font-semibold text-sm m-0 p-0">
                       {firstThree[2].points}
@@ -251,14 +244,11 @@ export default async function LeaderboardTable() {
                 <Avatar className="size-8 border-2 border-[#fff]">
                   <AvatarImage src={result.user.imageUrl} />
                   <AvatarFallback className="bg-gradient-to-b from-primary to-[#7116bb] text-white font-bold text-sm">
-                    {result?.user?.firstName ? result.user.firstName[0] : 'N/A'}
-                    {result?.user?.lastName ? result.user.lastName[0] : 'N/A'}
+                    {result?.user?.name ? result.user.name[0] : 'N/A'}
                   </AvatarFallback>
                 </Avatar>
                 <h2 className="text-slate-800 font-medium">
-                  {result?.user?.firstName && result?.user?.lastName
-                    ? `${result.user.firstName} ${result.user.lastName}`
-                    : 'N/A'}
+                  {result?.user?.name ? result?.user?.name : 'N/A'}
                 </h2>
               </div>
             </div>

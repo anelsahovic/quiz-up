@@ -1,5 +1,7 @@
+import { auth, signOut } from '../../../auth';
 import { DashboardSidebar } from '@/components/DashboardSidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,9 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { getUserByClerkId } from '@/lib/queries/users/queries';
-import { SignOutButton } from '@clerk/nextjs';
-import { currentUser } from '@clerk/nextjs/server';
+import getSession from '@/lib/getSession';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -25,20 +25,17 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const clerkUser = await currentUser();
-
-  if (!clerkUser?.id) {
-    return redirect('/'); // Redirect to homepage if the Clerk user is unavailable
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
   }
-
-  const user = await getUserByClerkId(clerkUser.id);
   // Redirect unauthorized users
   if (user?.role !== 'ADMIN') {
-    return redirect('/');
+    return redirect('/home');
   }
-
   return (
-    <SidebarProvider>
+    <SidebarProvider className="list-none">
       <DashboardSidebar />
       <SidebarInset className="w-80">
         <header className="flex justify-between h-16 px-2 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b">
@@ -50,20 +47,18 @@ export default async function DashboardLayout({
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar className="shadow-md">
-                  <AvatarImage src={user?.imageUrl} />
+                  <AvatarImage src={user?.image as string} />
                   <AvatarFallback className="text-primary">
-                    {`${clerkUser?.firstName && clerkUser?.firstName[0]}${
-                      clerkUser?.lastName && clerkUser?.lastName[0]
-                    }`}
+                    {user.name && user?.name[0]}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel className="my-0 pb-0">
-                  {clerkUser?.fullName}
+                  {user.name}
                 </DropdownMenuLabel>
                 <DropdownMenuLabel className="font-normal m-0 ml-1 p-0 px-1 text-slate-700">
-                  @{clerkUser?.username}
+                  {user.email}
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
@@ -82,9 +77,17 @@ export default async function DashboardLayout({
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="w-full text-left">
-                  <SignOutButton>
+                  {/* <SignOutButton>
                     <button className="w-full text-left">Sign Out</button>
-                  </SignOutButton>
+                  </SignOutButton> */}
+                  <form
+                    action={async () => {
+                      'use server';
+                      await signOut();
+                    }}
+                  >
+                    <Button variant="outline">Sign out</Button>
+                  </form>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

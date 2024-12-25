@@ -1,11 +1,19 @@
+import { auth } from '../../../auth';
 import LobbyForm from '@/components/LobbyForm';
 import { getAllCategories } from '@/lib/queries/categories/queries';
-import { Category } from '@/types/types';
+import { Category } from '../../../../types/types';
 import { SquareArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import getSession from '@/lib/getSession';
 
 export default async function Lobby() {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
   const categories: Category[] = await getAllCategories();
   return (
     <div className="w-full h-screen max-h-screen bg-gradient-to-b from-primary to-[#7116bb] flex flex-col justify-evenly items-center p-2 py-5 relative">

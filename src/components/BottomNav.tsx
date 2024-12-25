@@ -5,16 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Sidebar from './Sidebar';
 
-type Props = {
-  isAdmin: boolean;
-};
-
-export default function BottomNav({ isAdmin }: Props) {
+export default function BottomNav() {
   const pathname = usePathname();
 
   const shouldHide =
-    pathname.startsWith('/dashboard') ||
     pathname === '/' ||
+    pathname.startsWith('/sign-in') ||
+    pathname.startsWith('/sign-up') ||
+    pathname.startsWith('/dashboard') ||
     pathname.startsWith('/lobby') ||
     pathname.startsWith('/play');
   return (
@@ -55,7 +53,7 @@ export default function BottomNav({ isAdmin }: Props) {
             />
           </Link>
         </div>
-        <Sidebar isAdmin={isAdmin} />
+        <Sidebar />
       </div>
     </nav>
   );

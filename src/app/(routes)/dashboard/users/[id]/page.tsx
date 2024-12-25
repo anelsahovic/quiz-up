@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { deleteUser } from '@/lib/actions/users/actions';
 import { getUserById } from '@/lib/queries/users/queries';
 import { Pencil, SquareArrowLeft, Trash } from 'lucide-react';
+import getSession from '@/lib/getSession';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import React from 'react';
@@ -25,6 +26,16 @@ type Props = {
 };
 
 export default async function ShowUser({ params }: Props) {
+  const session = await getSession();
+  const userAuth = session?.user;
+  if (!userAuth) {
+    redirect('/sign-in'); // Redirect to homepage if the  user is unavailable
+  }
+  // Redirect unauthorized users
+  if (userAuth?.role !== 'ADMIN') {
+    return redirect('/home');
+  }
+
   const { id } = await params;
   const user = await getUserById(id);
   if (!user) {
@@ -70,7 +81,7 @@ export default async function ShowUser({ params }: Props) {
                         'use server';
 
                         const userId = await getUserById(id);
-                        deleteUser(id);
+                        await deleteUser(id);
                         redirect(`/dashboard/users`);
                       }}
                     >
@@ -85,18 +96,16 @@ export default async function ShowUser({ params }: Props) {
         <div>
           <div className="text-center sm:text-left flex flex-col items-center ">
             <Avatar className="w-20 h-20 text-primary border-2 border-gray-200 shadow-md">
-              <AvatarImage src={user?.imageUrl} />
+              <AvatarImage src={user?.image as string} />
               <AvatarFallback className="bg-primary text-white text-xl font-bold">
-                {`${user.firstName?.[0] || ''}${user.lastName?.[0] || ''}`}
+                {user.name && user.name[0]}
               </AvatarFallback>
             </Avatar>
             <div className="mt-4">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                {user.firstName} {user.lastName}
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center">
+                {user.name}
               </h1>
-              <p className="text-sm text-gray-500 text-center">
-                @{user.username || 'username'}
-              </p>
+              <p className="text-sm text-gray-500 text-center">{user.email}</p>
             </div>
           </div>
         </div>
@@ -114,36 +123,16 @@ export default async function ShowUser({ params }: Props) {
                 </p>
               </div>
             </div>
-            <div>
-              <div className="p-2 ">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  CLERK ID
-                </p>
-                <p className="text-sm font-medium text-gray-900 mt-1">
-                  {user.clerkUserId}
-                </p>
-              </div>
-            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full pt-2">
             <div className="w-full">
               <div className="p-4 bg-gradient-to-tr from-purple-50 to-white rounded-md shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  First Name
+                  Name
                 </p>
                 <p className="text-lg font-medium text-gray-900 mt-1">
-                  {user.firstName}
-                </p>
-              </div>
-            </div>
-            <div className="w-full">
-              <div className="p-4 bg-gradient-to-tr from-purple-50 to-white rounded-md shadow-md hover:shadow-lg transition-shadow">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  Last Name
-                </p>
-                <p className="text-lg font-medium text-gray-900 mt-1">
-                  {user.lastName}
+                  {user.name}
                 </p>
               </div>
             </div>
@@ -153,10 +142,10 @@ export default async function ShowUser({ params }: Props) {
             <div className="w-full">
               <div className="p-4 bg-gradient-to-tr from-purple-50 to-white rounded-md shadow-md hover:shadow-lg transition-shadow">
                 <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  Username
+                  Name
                 </p>
                 <p className="text-lg font-medium text-gray-900 mt-1">
-                  {user.username}
+                  {user.name}
                 </p>
               </div>
             </div>

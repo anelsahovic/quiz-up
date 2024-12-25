@@ -17,23 +17,13 @@ export type Category = {
 };
 
 export type User = {
+  image: string | null;
   id: string;
-  clerkUserId: string;
-  imageUrl: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
   role: Role;
-};
-
-export type clerkUser = {
-  clerkUserId: string;
-  imageUrl: string;
-  firstName: string;
-  lastName: string;
-  username: string;
+  name: string | null;
   email: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Result = {
@@ -46,6 +36,6 @@ export type Result = {
 };
 
 export type UserResult = {
-  user: { imageUrl: string; firstName: string; lastName: string };
+  user: { imageUrl: string; name: string };
   points: number;
 };

@@ -23,40 +23,39 @@ export async function getUserById(id: string) {
 }
 
 // Fetch user by Clerk ID
-export async function getUserByClerkId(clerkUserId: string) {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { clerkUserId: clerkUserId },
-    });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    return user;
-  } catch (error) {}
-}
+// export async function getUserByClerkId(clerkUserId: string) {
+//   try {
+//     const user = await prisma.user.findUnique({
+//       where: { clerkUserId: clerkUserId },
+//     });
+//     if (!user) {
+//       throw new Error('User not found');
+//     }
+//     return user;
+//   } catch (error) {}
+// }
 
-export async function getUserByClerkIdWithRetry(clerkUserId: string) {
-  let isUser = false;
-  while (!isUser) {
-    try {
-      const user = await prisma.user.findUnique({
-        where: { clerkUserId: clerkUserId },
-      });
+// export async function getUserByClerkIdWithRetry(clerkUserId: string) {
+//   let isUser = false;
+//   while (!isUser) {
+//     try {
+//       const user = await prisma.user.findUnique({
+//         where: { clerkUserId: clerkUserId },
+//       });
 
-      if (user) {
-        isUser = true;
-        return user; // User found
-      }
-    } catch (error) {}
-  }
-}
+//       if (user) {
+//         isUser = true;
+//         return user; // User found
+//       }
+//     } catch (error) {}
+//   }
+// }
 
 export async function getUserName(userId: string) {
   return await prisma.user.findUnique({
     where: { id: userId },
     select: {
-      firstName: true,
-      lastName: true,
+      name: true,
     },
   });
 }
