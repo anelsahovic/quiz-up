@@ -18,8 +18,6 @@ export default function ResultCard({
   difficulty,
   userId,
 }: Props) {
-  const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
-
   const earnedPoints: number =
     difficulty === 'EASY'
       ? correctAnswers * 1
@@ -37,6 +35,8 @@ export default function ResultCard({
       : difficulty === 'HARD'
       ? totalQuestions * 3
       : 0;
+
+  const scorePercentage = Math.round((earnedPoints / maxPoints) * 100);
 
   return (
     <div className="bg-[#1a041d50] p-8 rounded-lg shadow-xl max-w-xl mx-auto space-y-8">

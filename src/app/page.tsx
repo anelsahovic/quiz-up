@@ -156,7 +156,7 @@ export default function Home() {
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto shadow-md">
             <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-gradient-to-r from-[#ff5858] to-[#FFD700] text-white">

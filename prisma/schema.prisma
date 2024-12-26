@@ -15,6 +15,7 @@ model User {
   emailVerified DateTime?
   role          Role      @default(PLAYER)
   image         String?
+  password      String
   accounts      Account[]
   sessions      Session[]
 

@@ -95,10 +95,14 @@ export default async function ShowUser({ params }: Props) {
         </div>
         <div>
           <div className="text-center sm:text-left flex flex-col items-center ">
-            <Avatar className="w-20 h-20 text-primary border-2 border-gray-200 shadow-md">
-              <AvatarImage src={user?.image as string} />
-              <AvatarFallback className="bg-primary text-white text-xl font-bold">
-                {user.name && user.name[0]}
+            <Avatar className="size-20 border-2 shadow-md">
+              <AvatarImage
+                className="border-primary"
+                src={user?.image as string}
+              />
+
+              <AvatarFallback className="bg-primary text-white text-2xl font-bold border-white">
+                {user && user.name && user.name[0]}
               </AvatarFallback>
             </Avatar>
             <div className="mt-4">

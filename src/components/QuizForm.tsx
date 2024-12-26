@@ -141,7 +141,7 @@ export default function QuizForm({ questions, category, userId }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-evenly  min-h-screen p-4  text-white relative">
+    <div className="flex flex-col items-center justify-evenly  min-h-full p-4  text-white relative">
       {/* Progress Bar */}
       <div className="w-11/12 ml-2 bg-gray-700 rounded-full h-4 overflow-hidden absolute top-3.5">
         <div

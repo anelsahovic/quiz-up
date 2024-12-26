@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Separator } from '@/components/ui/separator';
+import { SheetTitle } from '@/components/ui/sheet';
 import {
   SidebarInset,
   SidebarProvider,
@@ -37,10 +38,12 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider className="list-none">
       <DashboardSidebar />
+
       <SidebarInset className="w-80">
         <header className="flex justify-between h-16 px-2 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 border-b">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
+
             <Separator orientation="vertical" className="mr-2 h-4" />
           </div>
           <div>

@@ -65,7 +65,7 @@ export default async function PlayQuiz({ searchParams, userId }: Props) {
     );
   }
   return (
-    <div className="h-screen w-screen p-6 sm:p-4 flex flex-col items-center justify-evenly relative text-white bg-gradient-to-b from-primary to-[#7116bb]">
+    <div className="h-screen w-full p-6 sm:p-4 flex flex-col items-center justify-evenly relative text-white bg-gradient-to-b from-primary to-[#7116bb]">
       {/* Close Button */}
       <div className="absolute top-2 left-2 ">
         <AlertDialog>

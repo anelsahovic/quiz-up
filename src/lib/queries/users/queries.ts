@@ -1,6 +1,14 @@
 import prisma from '@/lib/db';
 import { subMonths, format, startOfMonth, eachMonthOfInterval } from 'date-fns';
 
+export async function getUserFromDb(email: string) {
+  try {
+    return await prisma.user.findUnique({
+      where: { email: email },
+    });
+  } catch (error) {}
+}
+
 export const getAllUsers = async () => {
   try {
     return await prisma.user.findMany();

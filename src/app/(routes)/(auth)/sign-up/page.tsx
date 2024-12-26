@@ -1,5 +1,5 @@
 import { signIn } from '@/auth';
-import { Button } from '@/components/ui/button';
+import CredentialsSignUpForm from '@/components/CredentialsSignUpForm';
 import {
   Card,
   CardContent,
@@ -7,12 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { UserPlus } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
 
 export default function SignUpRoute() {
   return (
@@ -50,50 +46,7 @@ export default function SignUpRoute() {
             </form>
           </div>
           <div>
-            <form className="space-y-6">
-              {/* Name Field */}
-              <div>
-                <Label className="block mb-1 text-sm font-medium text-gray-600">
-                  Name
-                </Label>
-                <Input
-                  type="text"
-                  placeholder="Your Name"
-                  className="w-full px-4 py-2 text-sm border rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
-                />
-              </div>
-              {/* E-mail Field */}
-              <div>
-                <Label className="block mb-1 text-sm font-medium text-gray-600">
-                  E-mail
-                </Label>
-                <Input
-                  type="email"
-                  placeholder="example@gmail.com"
-                  className="w-full px-4 py-2 text-sm border rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
-                />
-              </div>
-              {/* Password Field */}
-              <div>
-                <Label className="block mb-1 text-sm font-medium text-gray-600">
-                  Password
-                </Label>
-                <Input
-                  type="password"
-                  placeholder="•••••••••••"
-                  className="w-full px-4 py-2 text-sm border rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
-                />
-              </div>
-              {/* Already Have an Account */}
-              <div className="flex items-center justify-center space-x-1 text-sm ">
-                <p>Already have an account?</p>
-                <Link className="text-primary hover:underline" href="/sign-in">
-                  Sign in
-                </Link>
-              </div>
-              {/* Sign Up Button */}
-              <Button className="w-full">Sign up</Button>
-            </form>
+            <CredentialsSignUpForm />
           </div>
         </CardContent>
       </Card>

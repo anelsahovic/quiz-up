@@ -17,8 +17,13 @@ export const categorySchema = z.object({
 
 export const userSchema = z.object({
   name: z.string().min(2).max(25),
-  image: z.string(),
+  image: z.string().nullable(),
   email: z.string(),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
   role: z.enum(['ADMIN', 'PLAYER']),
 });
 
@@ -30,4 +35,29 @@ export const lobbySchema = z.object({
 
 export const answersSchema = z.object({
   answer: z.string(),
+});
+
+export const signInSchema = z.object({
+  email: z
+    .string({ required_error: 'E-mail is required' })
+    .min(1, 'E-mail is required')
+    .email('Invalid e-mail'),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
+});
+
+export const signUpSchema = z.object({
+  email: z
+    .string({ required_error: 'E-mail is required' })
+    .min(1, 'E-mail is required')
+    .email('Invalid e-mail'),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
+  name: z.string().min(2).max(25),
 });

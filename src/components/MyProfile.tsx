@@ -43,7 +43,7 @@ export default async function MyProfile() {
             </div>
             {/* Edit Icon */}
             <Link
-              href="/edit-profile"
+              href="/my-profile/edit"
               className="absolute bottom-2 right-2 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-dark transition"
             >
               <PencilIcon className="w-4 h-4" />
@@ -98,7 +98,7 @@ export default async function MyProfile() {
         {/* Action Section */}
         <div className="flex items-center w-full">
           <Link
-            href="/edit-profile"
+            href="/my-profile/edit"
             className="w-full text-center bg-gradient-to-br from-primary to-[#7116bb] text-white font-medium py-3 rounded-full shadow-lg hover:shadow-xl hover:opacity-90 transition"
           >
             Edit Profile

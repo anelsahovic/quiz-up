@@ -20,6 +20,7 @@ import { useForm } from '@conform-to/react';
 import { userSchema } from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   data?: User;
@@ -34,6 +35,15 @@ export default function UserForm({
   data,
   actionType,
 }: Props) {
+  const session = useSession();
+  const user = session.data?.user;
+  const admin = user?.role === 'ADMIN' ? true : false;
+  if (!admin) {
+    if (user?.id !== data?.id) {
+      window.location.href = '/home';
+    }
+  }
+
   let defaultNameValue: string = '';
   let defaultImageValue: string = '';
   let defaultEmailValue: string = '';
@@ -75,7 +85,7 @@ export default function UserForm({
     <Card className="max-w-4xl mx-auto py-6 px-8 bg-white shadow-lg rounded-lg">
       <CardHeader className="flex flex-col items-center border-b">
         <div className="w-full flex justify-between items-center">
-          <Link href="/dashboard/users">
+          <Link href={`${admin ? '/dashboard/users' : '/my-profile'}`}>
             <SquareArrowLeft
               size={30}
               className="text-gray-700 hover:text-primary transition-all duration-300"
@@ -96,14 +106,15 @@ export default function UserForm({
         >
           <input type="hidden" name="userId" id="userId" value={data?.id} />
           <div className="flex flex-col w-full gap-1 justify-center items-center pb-4 border-b">
-            <Avatar className="size-24 border-2 border-primary shadow-md">
-              {data?.image ? (
-                <AvatarImage src={data?.image} />
-              ) : (
-                <AvatarFallback className="bg-slate-700 text-white font-bold">
-                  N/A
-                </AvatarFallback>
-              )}
+            <Avatar className="size-24 border-2 shadow-md">
+              <AvatarImage
+                className="border-primary"
+                src={data?.image as string}
+              />
+
+              <AvatarFallback className="bg-primary text-white text-2xl font-bold border-white">
+                {data && data.name && data.name[0]}
+              </AvatarFallback>
             </Avatar>
             <div className="w-full text-center">
               <Label htmlFor="image">Image Url</Label>
@@ -118,7 +129,7 @@ export default function UserForm({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/*  Name */}
-            <div>
+            <div className={`${!admin && 'col-span-1'}`}>
               <Label htmlFor="name">Name</Label>
               <Input
                 name={fields.name.name}
@@ -130,12 +141,22 @@ export default function UserForm({
             </div>
 
             {/* Role */}
-            <div>
+            {!admin && (
+              <input
+                type="hidden"
+                name={fields.role.name}
+                key={fields.role.key}
+                defaultValue={defaultRoleValue}
+                readOnly={!admin}
+              />
+            )}
+            <div className={`${!admin && 'hidden'}`}>
               <Label htmlFor="role">Role</Label>
               <Select
                 defaultValue={defaultRoleValue}
                 name={fields.role.name}
                 key={fields.role.key}
+                disabled={!admin}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select role" />
