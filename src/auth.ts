@@ -32,7 +32,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // Verify the password using bcrypt
         const isPasswordValid = await compare(
           credentials.password as string,
-          user.password
+          user.password as string
         );
 
         if (!isPasswordValid) {
