@@ -36,14 +36,10 @@ export default async function Home() {
           {/* upper section */}
           <div className="flex items-center justify-around w-full ">
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <Avatar className="size-12 sm:size-14 border-2 shadow-md">
-                <AvatarImage
-                  className="border-primary"
-                  src={user?.image as string}
-                />
-
-                <AvatarFallback className="bg-primary text-white text-2xl font-bold border-white">
-                  {user && user.name && user.name[0]}
+              <Avatar className="size-20 border-2 border-[#ffff]">
+                <AvatarImage src={user?.image as string} />
+                <AvatarFallback className="bg-primary  text-white font-bold text-lg">
+                  {user?.name && user.name[0]}
                 </AvatarFallback>
               </Avatar>
 

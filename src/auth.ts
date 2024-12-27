@@ -6,6 +6,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import { getUserFromDb } from './lib/queries/users/queries';
 import { compare } from 'bcrypt';
+import { Role } from '@prisma/client';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -60,7 +61,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.email = user.email;
-        // token.username = user.username;
+        token.role = user.role;
       }
       return token;
     },
@@ -68,9 +69,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
-        // session.user.username = token.username;
+        session.user.role = token.role as Role;
       }
       return session;
     },
   },
+  trustHost: true,
 });

@@ -34,10 +34,10 @@ export default async function MyProfile() {
           {/* Avatar */}
           <div className="relative">
             <div className="size-24 rounded-full bg-gradient-to-tr from-primary to-[#7116bb] p-1 shadow-lg">
-              <Avatar className="w-full h-full text-primary border-4 border-white">
+              <Avatar className="size-20 border-2 border-[#ffff]">
                 <AvatarImage src={user?.image as string} />
-                <AvatarFallback className="bg-primary text-white text-2xl font-bold">
-                  {user.name && user.name[0]}
+                <AvatarFallback className="bg-primary  text-white font-bold text-lg">
+                  {user?.name && user.name[0]}
                 </AvatarFallback>
               </Avatar>
             </div>

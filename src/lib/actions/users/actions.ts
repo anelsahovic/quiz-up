@@ -2,7 +2,12 @@
 
 import { signIn } from '@/auth';
 import prisma from '@/lib/db';
-import { signInSchema, signUpSchema, userSchema } from '@/lib/zodSchemas';
+import {
+  signInSchema,
+  signUpSchema,
+  userCreateSchema,
+  userUpdateSchema,
+} from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
@@ -71,12 +76,14 @@ export const signInUser = async (lastResult: unknown, formData: FormData) => {
 
 export async function createUser(lastResult: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
-    schema: userSchema,
+    schema: userCreateSchema,
   });
 
   if (submission.status !== 'success') {
     return submission.reply();
   }
+
+  const hashedPassword = await hash(submission.value.password, 10);
 
   try {
     await prisma.user.create({
@@ -84,7 +91,7 @@ export async function createUser(lastResult: unknown, formData: FormData) {
         name: submission.value.name,
         image: submission.value.image,
         email: submission.value.email,
-        password: submission.value.password,
+        password: hashedPassword,
         role: submission.value.role,
       },
     });
@@ -95,7 +102,7 @@ export async function createUser(lastResult: unknown, formData: FormData) {
 
 export async function updateUser(lastResult: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
-    schema: userSchema,
+    schema: userUpdateSchema,
   });
 
   if (submission.status !== 'success') {
@@ -112,7 +119,9 @@ export async function updateUser(lastResult: unknown, formData: FormData) {
         role: submission.value.role,
       },
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error('Update Error:', error);
+  }
 
   return redirect('/home');
 }

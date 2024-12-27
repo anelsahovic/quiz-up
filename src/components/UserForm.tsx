@@ -17,10 +17,11 @@ import {
 import { User } from '../../types/types';
 import { createUser, updateUser } from '@/lib/actions/users/actions';
 import { useForm } from '@conform-to/react';
-import { userSchema } from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { userCreateSchema, userUpdateSchema } from '@/lib/zodSchemas';
 
 type Props = {
   data?: User;
@@ -37,23 +38,28 @@ export default function UserForm({
 }: Props) {
   const session = useSession();
   const user = session.data?.user;
+  const router = useRouter();
+
   const admin = user?.role === 'ADMIN' ? true : false;
-  if (!admin) {
-    if (user?.id !== data?.id) {
-      window.location.href = '/home';
-    }
-  }
+  // if (!admin) {
+  //   if (user?.id !== data?.id) {
+  //     router.push('/home');
+  //   }
+  // }
 
   let defaultNameValue: string = '';
   let defaultImageValue: string = '';
   let defaultEmailValue: string = '';
   let defaultRoleValue: string = '';
-  let selectedAction = createUser;
+  let selectedAction = updateUser;
+  let selectedSchema = userUpdateSchema;
 
   if (actionType === 'create') {
     selectedAction = createUser;
+    selectedSchema = userCreateSchema;
   } else if (actionType === 'update') {
     selectedAction = updateUser;
+    selectedSchema = userUpdateSchema;
   }
 
   const [lastResult, action] = useActionState(selectedAction, undefined);
@@ -62,7 +68,7 @@ export default function UserForm({
 
     onValidate({ formData }) {
       return parseWithZod(formData, {
-        schema: userSchema,
+        schema: selectedSchema,
       });
     },
 
@@ -150,24 +156,26 @@ export default function UserForm({
                 readOnly={!admin}
               />
             )}
-            <div className={`${!admin && 'hidden'}`}>
-              <Label htmlFor="role">Role</Label>
-              <Select
-                defaultValue={defaultRoleValue}
-                name={fields.role.name}
-                key={fields.role.key}
-                disabled={!admin}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="ADMIN">Admin</SelectItem>
-                  <SelectItem value="PLAYER">Player</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-rose-500">{fields.role.errors}</p>
-            </div>
+            {admin && (
+              <div className={`${!admin && 'hidden'}`}>
+                <Label htmlFor="role">Role</Label>
+                <Select
+                  defaultValue={defaultRoleValue}
+                  name={fields.role.name}
+                  key={fields.role.key}
+                  disabled={!admin}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ADMIN">Admin</SelectItem>
+                    <SelectItem value="PLAYER">Player</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-sm text-rose-500">{fields.role.errors}</p>
+              </div>
+            )}
           </div>
 
           {/* Email */}
@@ -184,15 +192,20 @@ export default function UserForm({
           </div>
 
           {/* Password */}
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              type="password"
-              placeholder="********"
-              className="pr-10"
-              readOnly={actionType === 'update'}
-            />
-          </div>
+          {/* {actionType === 'create' && (
+           <div>
+           <Label htmlFor="password">Password</Label>
+           <Input
+             type="password"
+             placeholder="********"
+             className="pr-10"
+             name={fields.password.name}
+             key={fields.password.key}
+             defaultValue={defaultPasswordValue}
+           />
+           <p className="text-sm text-rose-500">{fields.password.errors}</p>
+         </div>
+         )} */}
 
           {/* Submit Button */}
           <div className="flex justify-end">

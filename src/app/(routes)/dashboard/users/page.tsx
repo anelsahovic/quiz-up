@@ -34,8 +34,8 @@ export default async function UsersRoute() {
           </div>
           <div>
             <Link
-              href="/dashboard/users/create"
-              className={`${buttonVariants()} `}
+              href=""
+              className={`${buttonVariants()} opacity-50 cursor-not-allowed`}
             >
               New <PlusSquare />
             </Link>

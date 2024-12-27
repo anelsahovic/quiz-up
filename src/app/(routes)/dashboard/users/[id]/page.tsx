@@ -129,19 +129,6 @@ export default async function ShowUser({ params }: Props) {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full pt-2">
-            <div className="w-full">
-              <div className="p-4 bg-gradient-to-tr from-purple-50 to-white rounded-md shadow-md hover:shadow-lg transition-shadow">
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider">
-                  Name
-                </p>
-                <p className="text-lg font-medium text-gray-900 mt-1">
-                  {user.name}
-                </p>
-              </div>
-            </div>
-          </div>
-
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full ">
             <div className="w-full">
               <div className="p-4 bg-gradient-to-tr from-purple-50 to-white rounded-md shadow-md hover:shadow-lg transition-shadow">

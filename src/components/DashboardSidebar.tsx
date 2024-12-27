@@ -108,7 +108,7 @@ export function DashboardSidebar() {
                 </SidebarMenuSubItem>
                 <SidebarMenuSubItem>
                   <SidebarMenuSubButton asChild>
-                    <Link href="/dashboard/users/create">
+                    <Link href="" className="opacity-50 cursor-not-allowed">
                       <span>Create new</span>
                     </Link>
                   </SidebarMenuSubButton>

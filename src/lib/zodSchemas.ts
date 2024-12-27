@@ -15,15 +15,27 @@ export const categorySchema = z.object({
   name: z.string().min(2).max(20),
 });
 
-export const userSchema = z.object({
+export const userCreateSchema = z.object({
   name: z.string().min(2).max(25),
-  image: z.string().nullable(),
-  email: z.string(),
+  image: z.string().nullable().optional(),
+  email: z
+    .string({ required_error: 'E-mail is required' })
+    .min(1, 'E-mail is required')
+    .email('Invalid e-mail'),
   password: z
     .string({ required_error: 'Password is required' })
-    .min(1, 'Password is required')
     .min(8, 'Password must be more than 8 characters')
     .max(32, 'Password must be less than 32 characters'),
+  role: z.enum(['ADMIN', 'PLAYER']),
+});
+
+export const userUpdateSchema = z.object({
+  name: z.string().min(2).max(25),
+  image: z.string().nullable().optional(),
+  email: z
+    .string({ required_error: 'E-mail is required' })
+    .min(1, 'E-mail is required')
+    .email('Invalid e-mail'),
   role: z.enum(['ADMIN', 'PLAYER']),
 });
 
