@@ -33,14 +33,13 @@ export default async function MyProfile() {
         <div className="flex flex-col items-center space-y-3">
           {/* Avatar */}
           <div className="relative">
-            <div className="size-24 rounded-full bg-gradient-to-tr from-primary to-[#7116bb] p-1 shadow-lg">
-              <Avatar className="size-20 border-2 border-[#ffff]">
-                <AvatarImage src={user?.image as string} />
-                <AvatarFallback className="bg-primary  text-white font-bold text-lg">
-                  {user?.name && user.name[0]}
-                </AvatarFallback>
-              </Avatar>
-            </div>
+            <Avatar className="size-24 border-2 border-[#ffff]">
+              <AvatarImage src={user?.image as string} />
+              <AvatarFallback className="bg-primary  text-white font-bold text-lg">
+                {user?.name && user.name[0]}
+              </AvatarFallback>
+            </Avatar>
+
             {/* Edit Icon */}
             <Link
               href="/my-profile/edit"
